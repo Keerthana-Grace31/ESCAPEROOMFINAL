@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Pandemic Escape</title>
+
+    <link rel="stylesheet" href="/css/pandemic-base.css">
+    <link rel="stylesheet" href="/css/pandemic.css">
+
+</head>
+
+<body th:data-bgm-src="@{/sounds/music/puzzle-mystery.mp3}" data-bgm-src="/sounds/music/puzzle-mystery.mp3" class="pandemic-page">
+    <th:block th:replace="~{fragments/bgm :: audio}"></th:block>
+
+<header class="site-header">
+
+    <div class="logo">
+        ◈ DIGITAL <span>ESCAPE ROOM</span>
+    </div>
+
+    <div class="nav-actions">
+
+        <button class="nav-button sound-button"
+                type="button" data-bgm-toggle aria-pressed="true">
+            🔊 SOUND
+        </button>
+
+        <button class="nav-button"
+                onclick="goToMainMenu()">
+            ⌂ MAIN MENU
+        </button>
+
+    </div>
+
+</header>
+
+
+<div class="system-status">
+    SYSTEM STATUS: LOCKDOWN ACTIVE
+</div>
+
+
+<main class="main-container">
+
+    <h1 class="scenario-heading">
+        PANDEMIC <span>ESCAPE</span>
+    </h1>
+
+
+    <div class="story-layout">
+
+        <section class="story-panel">
+
+            <h2>
+                THE QUARANTINE MYSTERY
+            </h2>
+
+            <p>
+                A mysterious virus has spread through
+                a high-security research facility.
+            </p>
+
+            <p>
+                The facility has entered emergency lockdown.
+                The scientists have disappeared and the
+                research data is encrypted.
+            </p>
+
+            <p>
+                Investigate the evidence, solve the puzzles,
+                uncover the source of the outbreak and
+                escape before the quarantine system becomes permanent.
+            </p>
+
+
+            <div class="mission-grid">
+
+                <div class="mission-box">
+                    <small>MISSION</small>
+                    <strong>QUARANTINE BREACH</strong>
+                </div>
+
+                <div class="mission-box">
+                    <small>PUZZLES</small>
+                    <strong>3</strong>
+                </div>
+
+                <div class="mission-box">
+                    <small>TIME LIMIT</small>
+                    <strong>10:00</strong>
+                </div>
+
+            </div>
+
+
+            <div class="hint-card">
+
+                <h3>MISSION OBJECTIVE</h3>
+
+                <p>
+                    Investigate the quarantine facility,
+                    follow the evidence trail and restore
+                    the emergency system.
+                </p>
+
+            </div>
+
+
+            <h3 style="text-align:center; margin-top:30px;">CHOOSE YOUR ROLE</h3>
+
+            <div class="scenario-grid">
+
+                <div class="scenario-card">
+                    <div class="scenario-icon">🎓</div>
+                    <h2>STUDENT</h2>
+                    <p>Escape from the research laboratory.</p>
+                    <button class="start-button" onclick="location.href='/student'">START MISSION</button>
+                </div>
+
+                <div class="scenario-card">
+                    <div class="scenario-icon">🩺</div>
+                    <h2>DOCTOR</h2>
+                    <p>Decode the medical records and escape.</p>
+                    <button class="start-button" onclick="location.href='/doctor'">START MISSION</button>
+                </div>
+
+            </div>
+
+        </section>
+
+    </div>
+
+</main>
+
+
+<script src="/js/pandemic-sound.js"></script>
+<script src="/js/pandemic.js"></script>
+
+    <script th:src="@{/js/bgm.js}"></script>
+</body>
+</html>

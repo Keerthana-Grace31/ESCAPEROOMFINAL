@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:fragment="head(title)">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title th:text="${title} + ' | Digital Escape Room'">Digital Escape Room</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+  <link rel="stylesheet" th:href="@{/css/spacecraft.css}">
+</head>
+<body>
+
+<!-- Creative background: dark overlay keeps all text readable -->
+<div th:fragment="background(theme)" class="scene" aria-hidden="true">
+  <div class="space-background"></div>
+  <div class="planet-glow"></div>
+  <div class="earth-dot"></div>
+  <div class="space-overlay"></div>
+</div>
+
+<!-- Common header / navigation -->
+<header th:fragment="header(backHref, backLabel)" class="site-header">
+  <div class="container">
+    <a class="brand" th:href="@{/}" aria-label="Digital Escape Room home">
+      <span class="brand-mark">◈</span><span class="brand-text">Digital Escape Room</span>
+    </a>
+    <nav class="nav" aria-label="Main navigation">
+      <a th:if="${backHref != null}" class="btn btn-secondary" th:href="${backHref}" th:text="${backLabel}">← Back</a>
+      <button type="button" class="btn btn-secondary btn-sound" data-bgm-toggle aria-pressed="true">
+        <span class="sound-icon" aria-hidden="true">🔊</span><span class="sound-label">Sound On</span>
+      </button>
+      <a class="btn btn-secondary" th:href="@{/}"><span aria-hidden="true">⌂</span> Home</a>
+    </nav>
+  </div>
+</header>
+
+</body>
+</html>

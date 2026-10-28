@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Digital Escape Room</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        th:href="@{/css/main-index.css}" href="/css/main-index.css"
+    >
+</head>
+
+<body th:data-sound-base="@{/sounds}">
+    <th:block th:replace="~{fragments/bgm :: audio}"></th:block>
+
+    <!-- =====================================================
+         HEADER
+         ===================================================== -->
+
+    <header class="main-header">
+
+        <div class="header-inner">
+
+            <a
+                th:href="@{/}" href="/"
+                class="logo"
+            >
+                ◈ DIGITAL ESCAPE ROOM
+            </a>
+
+            <nav class="main-nav">
+
+                <a
+                    href="#missions"
+                    class="nav-link"
+                >
+                    MISSIONS
+                </a>
+
+                <a
+                    href="#challenge"
+                    class="nav-link"
+                >
+                    THE CHALLENGE
+                </a>
+
+                <button
+                    type="button"
+                    class="sound-button"
+                    data-bgm-toggle
+                    aria-pressed="true"
+                >
+                    <span class="sound-icon" aria-hidden="true">🔊</span>
+                    <span class="sound-label">SOUND ON</span>
+                </button>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         HERO
+         ===================================================== -->
+
+    <main>
+
+        <section class="hero">
+
+            <div class="hero-content">
+
+                <p class="hero-kicker">
+                    DIGITAL ESCAPE ROOM
+                </p>
+
+                <h1>
+                    DIFFERENT WORLDS.
+                    <br>
+                    SAME CHALLENGE.
+                </h1>
+
+                <p class="hero-description">
+                    Enter a world, solve the clues, beat the clock,
+                    and find your way out.
+                </p>
+
+                <a
+                    href="#missions"
+                    class="primary-button"
+                >
+                    CHOOSE YOUR MISSION
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             MISSION SECTION
+             ================================================= -->
+
+        <section
+            id="missions"
+            class="mission-section"
+        >
+
+            <div class="section-heading">
+
+                <p class="section-kicker">
+                    CHOOSE YOUR WORLD
+                </p>
+
+                <h2>
+                    SELECT A MISSION
+                </h2>
+
+                <p>
+                    Each world contains a different story,
+                    but the challenge remains the same.
+                </p>
+
+            </div>
+
+
+            <!-- ================= MISSION GRID ================= -->
+
+            <div class="mission-grid">
+
+
+                <!-- PANDEMIC -->
+
+                <article class="mission-card">
+
+                    <div class="mission-image">
+
+                        <img
+                            th:src="@{/images/main/pandemic.jpeg}" src="/images/main/pandemic.jpeg"
+                            alt="Pandemic laboratory"
+                        >
+
+                    </div>
+
+                    <div class="mission-content">
+
+                        <span class="mission-number">
+                            01
+                        </span>
+
+                        <span class="mission-category">
+                            BIOHAZARD
+                        </span>
+
+                        <h3>
+                            PANDEMIC OUTBREAK
+                        </h3>
+
+                        <p>
+                            A dangerous outbreak has spread.
+                            Investigate the clues and find a way
+                            to stop it before time runs out.
+                        </p>
+
+                        <a
+                            th:href="@{/pandemic}" href="/pandemic"
+                            class="mission-button"
+                        >
+                            ENTER MISSION
+                        </a>
+
+                    </div>
+
+                </article>
+
+
+                <!-- SPACECRAFT -->
+
+                <article class="mission-card">
+
+                    <div class="mission-image">
+
+                        <img
+                            th:src="@{/images/main/space.png}" src="/images/main/space.png"
+                            alt="Spacecraft mission"
+                        >
+
+                    </div>
+
+                    <div class="mission-content">
+
+                        <span class="mission-number">
+                            02
+                        </span>
+
+                        <span class="mission-category">
+                            SPACECRAFT
+                        </span>
+
+                        <h3>
+                            SPACE ESCAPE
+                        </h3>
+
+                        <p>
+                            Choose between a Mars rescue and a
+                            silent lunar station. Solve the systems
+                            before the mission fails.
+                        </p>
+
+                        <a
+                            th:href="@{/spacecraft}" href="/spacecraft"
+                            class="mission-button"
+                        >
+                            ENTER MISSION
+                        </a>
+
+                    </div>
+
+                </article>
+
+
+                <!-- TIME TRAVEL -->
+
+                <article class="mission-card">
+
+                    <div class="mission-image">
+
+                        <img
+                            th:src="@{/images/main/Time.jpg}" src="/images/main/Time.jpg"
+                            alt="Time travel mission"
+                        >
+
+                    </div>
+
+                    <div class="mission-content">
+
+                        <span class="mission-number">
+                            03
+                        </span>
+
+                        <span class="mission-category">
+                            TEMPORAL
+                        </span>
+
+                        <h3>
+                            TIME TRAVEL
+                        </h3>
+
+                        <p>
+                            The timeline has been disrupted.
+                            Follow the clues and restore the
+                            correct sequence of events.
+                        </p>
+
+                        <a
+                            th:href="@{/timetravel}" href="/timetravel"
+                            class="mission-button"
+                        >
+                            ENTER MISSION
+                        </a>
+
+                    </div>
+
+                </article>
+
+
+                <!-- ZOMBIE -->
+
+                <article class="mission-card">
+
+                    <div class="mission-image">
+
+                        <img
+                            th:src="@{/images/main/zombie.jpeg}" src="/images/main/zombie.jpeg"
+                            alt="Zombie survival mission"
+                        >
+
+                    </div>
+
+                    <div class="mission-content">
+
+                        <span class="mission-number">
+                            04
+                        </span>
+
+                        <span class="mission-category">
+                            SURVIVAL
+                        </span>
+
+                        <h3>
+                            ZOMBIE ESCAPE
+                        </h3>
+
+                        <p>
+                            The city has fallen into chaos.
+                            Search for clues, survive the dangers,
+                            and find your escape route.
+                        </p>
+
+                        <a
+                            th:href="@{/zombie}" href="/zombie"
+                            class="mission-button"
+                        >
+                            ENTER MISSION
+                        </a>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             CHALLENGE
+             ================================================= -->
+
+        <section
+            id="challenge"
+            class="challenge-section"
+        >
+
+            <div class="challenge-content">
+
+                <p class="section-kicker">
+                    THE CHALLENGE
+                </p>
+
+                <h2>
+                    THINK FAST.
+                    <br>
+                    SOLVE SMART.
+                    <br>
+                    ESCAPE.
+                </h2>
+
+                <p>
+                    Every mission gives you a limited amount of
+                    time to investigate clues, solve puzzles and
+                    restore the situation.
+                </p>
+
+                <div class="challenge-points">
+
+                    <div>
+                        <strong>01</strong>
+                        <span>Explore the world</span>
+                    </div>
+
+                    <div>
+                        <strong>02</strong>
+                        <span>Find the clues</span>
+                    </div>
+
+                    <div>
+                        <strong>03</strong>
+                        <span>Solve the puzzles</span>
+                    </div>
+
+                    <div>
+                        <strong>04</strong>
+                        <span>Escape before time runs out</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =====================================================
+         FOOTER
+         ===================================================== -->
+
+    <footer class="main-footer">
+
+        <div class="footer-title">
+            ◈ DIGITAL ESCAPE ROOM
+        </div>
+
+        <div class="footer-tagline">
+            Different Worlds • Same Challenge • One Escape
+        </div>
+
+        <div class="footer-copy">
+            © 2026 Digital Escape Room Team · Version 1.0
+        </div>
+
+    </footer>
+
+    <script th:src="@{/js/game.js}"></script>
+    <script th:src="@{/js/bgm.js}"></script>
+</body>
+</html>

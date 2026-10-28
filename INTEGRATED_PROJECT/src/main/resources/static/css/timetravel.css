@@ -1,0 +1,212 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+
+    background: #0B0F14;
+    color: #F2F5F7;
+
+    font-family: 'Space Grotesk', Arial, sans-serif;
+
+    padding: 60px 8%;
+}
+
+/* Main heading */
+
+h1 {
+    text-align: center;
+    color: #00D9FF;
+
+    font-size: 48px;
+    font-weight: 700;
+
+    letter-spacing: 4px;
+
+    margin: 0 0 12px;
+}
+
+/* Introduction */
+
+body > p {
+    text-align: center;
+
+    color: #9AA6B2;
+
+    font-size: 18px;
+
+    margin-bottom: 50px;
+}
+
+/* Mission cards */
+
+section {
+    max-width: 850px;
+
+    margin: 0 auto 30px;
+
+    padding: 32px;
+
+    background: #111820;
+
+    border: 1px solid #26323D;
+    border-radius: 12px;
+
+    box-shadow: 0 0 25px rgba(0, 217, 255, 0.08);
+
+    transition: 0.25s ease;
+}
+
+section:hover {
+    border-color: #00D9FF;
+
+    box-shadow:
+        0 0 30px rgba(0, 217, 255, 0.18);
+
+    transform: translateY(-3px);
+}
+
+/* Mission title */
+
+section h2 {
+    margin-top: 0;
+
+    color: #F2F5F7;
+
+    font-size: 26px;
+    font-weight: 700;
+
+    letter-spacing: 1px;
+}
+
+/* Mission description */
+
+section p {
+    color: #9AA6B2;
+
+    font-size: 16px;
+
+    line-height: 1.7;
+
+    margin-bottom: 24px;
+}
+
+/* Buttons */
+
+button {
+    padding: 12px 24px;
+
+    background: transparent;
+
+    color: #00D9FF;
+
+    border: 1px solid #00D9FF;
+    border-radius: 8px;
+
+    font-family: 'Space Grotesk', Arial, sans-serif;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    letter-spacing: 1px;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+button:hover {
+    background: #00D9FF;
+
+    color: #0B0F14;
+
+    box-shadow:
+        0 0 20px rgba(0, 217, 255, 0.4);
+}
+
+button:active {
+    transform: scale(0.97);
+}
+
+/* Mobile */
+
+@media (max-width: 600px) {
+
+    body {
+        padding: 40px 20px;
+    }
+
+    h1 {
+        font-size: 34px;
+    }
+
+    body > p {
+        font-size: 15px;
+    }
+
+    section {
+        padding: 24px;
+    }
+
+    section h2 {
+        font-size: 21px;
+    }
+
+    button {
+        width: 100%;
+    }
+}
+/* ---------- Added during integration ---------- */
+.mission-button,
+.home-link {
+    display: inline-block;
+    padding: 12px 24px;
+    color: #00D9FF;
+    border: 1px solid #00D9FF;
+    border-radius: 8px;
+    font-family: 'Space Grotesk', Arial, sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-decoration: none;
+    transition: 0.2s ease;
+}
+.mission-button:hover,
+.home-link:hover {
+    background: #00D9FF;
+    color: #0B0F14;
+    box-shadow: 0 0 20px rgba(0, 217, 255, 0.4);
+}
+.top-nav { margin-bottom: 24px; }
+.mission-links { display: flex; gap: 12px; flex-wrap: wrap; }
+
+/* quiz page */
+.quiz-status { display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; margin: 16px 0; font-size: 18px; }
+.quiz-card { max-width: 700px; margin: 0 auto 24px; }
+.quiz-card input[type="text"] {
+    width: 100%; box-sizing: border-box; padding: 12px; margin: 12px 0;
+    background: #111820; color: #F2F5F7; border: 1px solid #26323D; border-radius: 8px;
+    font-size: 16px; font-family: inherit;
+}
+.quiz-feedback { min-height: 24px; margin-top: 12px; font-weight: 600; }
+.quiz-feedback.ok { color: #35E08A; }
+.quiz-feedback.bad { color: #FF4D5A; }
+.quiz-feedback.hint { color: #FFB547; }
+.quiz-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+[hidden] { display: none !important; }
+
+/* ---- Responsive audit (320px - 1440px+) ---- */
+.top-nav { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.top-nav .bgm-toggle { width: auto; }
+.bgm-toggle[aria-pressed="false"] { color: #9AA6B2; border-color: #26323D; }
+.mission-button, .home-link { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; }
+button { min-height: 44px; }
+h1, section h2 { overflow-wrap: anywhere; }
+@media (max-width: 600px) {
+    h1 { letter-spacing: 2px; }
+    .mission-links .mission-button { flex: 1 1 100%; }
+}

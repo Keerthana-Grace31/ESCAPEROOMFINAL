@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title} + ' | Digital Escape Room'">Time Travel Quiz</title>
+    <link rel="stylesheet" th:href="@{/css/timetravel.css}">
+</head>
+
+<body th:data-bgm-src="@{/sounds/music/the-way-out-15s.mp3}" data-bgm-src="/sounds/music/the-way-out-15s.mp3" th:data-scenario="${scenario}" th:data-api="@{/api/timetravel}" th:data-sound-base="@{/sounds}">
+    <th:block th:replace="~{fragments/bgm :: audio}"></th:block>
+
+    <nav class="top-nav">
+        <a class="home-link" th:href="@{/timetravel}">&larr; MISSIONS</a>
+        <a class="home-link" th:href="@{/}">&#8962; HOME</a>
+        <th:block th:replace="~{fragments/bgm :: toggle}"></th:block>
+    </nav>
+
+    <h1 th:text="${title}">MISSION</h1>
+
+    <div class="quiz-status">
+        <div>&#10084;&#65039; Lives: <span id="lives">3</span></div>
+        <div>Era: <span id="era">&mdash;</span></div>
+        <div>Question: <span id="progress">&mdash;</span></div>
+    </div>
+
+    <section id="periodPicker" class="quiz-card">
+        <h2>SELECT TIME PERIOD</h2>
+        <p>Solve all five puzzles in an era to stabilise it.</p>
+        <button type="button" data-period="PAST">&#9203; PAST</button>
+        <button type="button" data-period="PRESENT">&#9889; PRESENT</button>
+        <button type="button" data-period="FUTURE">&#128640; FUTURE</button>
+    </section>
+
+    <section id="puzzleCard" class="quiz-card" hidden>
+        <h2 id="puzzleText"></h2>
+        <input type="text" id="answerInput" autocomplete="off" maxlength="100" placeholder="Your answer">
+        <div class="quiz-actions">
+            <button type="button" id="submitBtn">SUBMIT</button>
+            <button type="button" id="hintBtn">HINT</button>
+        </div>
+        <div id="feedback" class="quiz-feedback" role="status" aria-live="polite"></div>
+    </section>
+
+    <section id="endCard" class="quiz-card" hidden>
+        <h2 id="endTitle"></h2>
+        <p id="endText"></p>
+        <button type="button" id="againBtn">PLAY AGAIN</button>
+    </section>
+
+    <script th:src="@{/js/timetravel-quiz.js}"></script>
+    <script th:src="@{/js/bgm.js}"></script>
+</body>
+</html>

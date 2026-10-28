@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments/layout :: head('Spacecraft')}"></head>
+<body th:data-bgm-src="@{/sounds/music/the-way-out-15s.mp3}" data-bgm-src="/sounds/music/the-way-out-15s.mp3" class="theme-select"
+      th:data-ambient="@{/sounds/spacecraft/ambient.mp3}"
+      th:data-sound-base="@{/sounds}">
+    <th:block th:replace="~{fragments/bgm :: audio}"></th:block>
+
+  <div th:replace="~{fragments/layout :: background('select')}"></div>
+
+  <div class="page">
+    <div th:replace="~{fragments/layout :: header(null, null)}"></div>
+
+    <main>
+      <!-- Hero -->
+      <section class="hero">
+        <div class="container fade-up">
+          <p class="eyebrow">Spacecraft Scenario</p>
+          <h1 class="title-main">Choose Your Mission</h1>
+          <p class="lede text-normal">
+            Two missions, one spacecraft. Pick a destination, read the clues, and make the right decisions
+            before you run out of lives.
+          </p>
+          <div class="hero-tags">
+            <span class="tag">❤️ 3 lives</span>
+            <span class="tag">🧩 4 challenges</span>
+            <span class="tag">🚀 2 destinations</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Mission rules -->
+      <section id="rules" class="section" aria-labelledby="rules-heading">
+        <div class="container">
+          <div class="section-head">
+            <p class="eyebrow">Before Launch</p>
+            <h2 class="title-section" id="rules-heading">Mission Rules</h2>
+          </div>
+
+          <div class="rules-grid">
+            <article class="card rule-card is-danger">
+              <span class="rule-icon" aria-hidden="true">❤️</span>
+              <h3>Three Lives</h3>
+              <p>Every mission begins with three lives.</p>
+            </article>
+            <article class="card rule-card is-warning">
+              <span class="rule-icon" aria-hidden="true">⚠️</span>
+              <h3>Wrong Decision</h3>
+              <p>An incorrect answer costs one life.</p>
+            </article>
+            <article class="card rule-card is-success">
+              <span class="rule-icon" aria-hidden="true">✓</span>
+              <h3>Complete All Challenges</h3>
+              <p>Solve all four challenges to complete your mission.</p>
+            </article>
+            <article class="card rule-card">
+              <span class="rule-icon" aria-hidden="true">◈</span>
+              <h3>Think Before Submitting</h3>
+              <p>Read the clues carefully. Every decision matters.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Destinations -->
+      <section id="destinations" class="section" aria-labelledby="dest-heading">
+        <div class="container">
+          <div class="section-head">
+            <p class="eyebrow">Ready for Launch?</p>
+            <h2 class="title-section" id="dest-heading">Your mission starts here.</h2>
+            <p class="text-muted" style="margin-top: var(--space-1)">Choose your destination and enter the spacecraft.</p>
+          </div>
+
+          <div class="destinations">
+            <article class="card destination">
+              <div class="dest-visual mars">
+                <span class="tag dest-badge">Red Planet</span>
+                <div class="dest-body-planet"></div>
+              </div>
+              <div class="dest-content">
+                <h3 class="title-section">Mars</h3>
+                <p class="text-muted">Dust storms, failing power and a long way from home. Survive the Red Planet expedition.</p>
+                <div class="dest-meta">
+                  <span class="tag">❤️ 3 lives</span>
+                  <span class="tag">🧩 4 challenges</span>
+                </div>
+                <a class="btn" th:href="@{/spacecraft/mars}">Enter Mars Mission →</a>
+              </div>
+            </article>
+
+            <article class="card destination">
+              <div class="dest-visual lunar">
+                <span class="tag dest-badge">Moon Base</span>
+                <div class="dest-body-planet"></div>
+              </div>
+              <div class="dest-content">
+                <h3 class="title-section">Lunar</h3>
+                <p class="text-muted">Low gravity, delayed radio and limited oxygen. Keep the Moon base alive.</p>
+                <div class="dest-meta">
+                  <span class="tag">❤️ 3 lives</span>
+                  <span class="tag">🧩 4 challenges</span>
+                </div>
+                <a class="btn" th:href="@{/spacecraft/lunar}">Enter Lunar Mission →</a>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <span class="brand"><span class="brand-mark">◈</span> Digital Escape Room <span class="text-muted">• Spacecraft Experience</span></span>
+        <span class="text-small text-muted">Read • Analyze • Decide • Survive</span>
+      </div>
+    </footer>
+  </div>
+
+  <script th:src="@{/js/game.js}"></script>
+    <script th:src="@{/js/bgm.js}"></script>
+</body>
+</html>

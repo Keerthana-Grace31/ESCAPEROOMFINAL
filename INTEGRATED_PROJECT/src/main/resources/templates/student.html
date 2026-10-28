@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Escape</title>
+
+    <link rel="stylesheet" href="/css/pandemic-base.css">
+    <link rel="stylesheet" href="/css/pandemic.css">
+
+</head>
+
+<body th:data-bgm-src="@{/sounds/music/puzzle-mystery.mp3}" data-bgm-src="/sounds/music/puzzle-mystery.mp3" class="pandemic-page">
+    <th:block th:replace="~{fragments/bgm :: audio}"></th:block>
+
+<header class="site-header">
+
+    <div class="logo">
+        ◈ DIGITAL <span>ESCAPE ROOM</span>
+    </div>
+
+    <div class="nav-actions">
+
+        <div id="timer"
+             class="timer">
+            10:00
+        </div>
+
+<div id="lives" class="lives-display">
+    ❤️ ❤️ ❤️
+    <br>
+    LIVES: 3
+</div>
+      <button class="nav-button sound-button" type="button" data-bgm-toggle aria-pressed="true">
+    🔊 SOUND ON
+</button>
+
+        <button class="nav-button"
+                onclick="goToMainMenu()">
+            ⌂ MAIN MENU
+        </button>
+
+    </div>
+
+</header>
+
+
+<div class="system-status">
+    QUARANTINE SYSTEM ACTIVE
+</div>
+
+
+<main class="main-container">
+
+    <div class="role-header">
+
+        <div>
+
+            <h1 class="role-title">
+                STUDENT <span>MISSION</span>
+            </h1>
+
+            <p class="role-description">
+                Find the clues hidden inside the research facility.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="hint-card">
+
+        <h3>OBJECTIVE</h3>
+
+        <p>
+            Investigate the laboratory, solve the three puzzles
+            and find the emergency exit.
+        </p>
+
+    </div>
+
+
+    <div class="door-grid">
+
+
+        <div class="door-card">
+
+            <div class="door-icon">🧪</div>
+
+            <h3>LABORATORY</h3>
+
+            <p>
+                Examine the samples and research notes.
+            </p>
+
+            <button class="secondary-button">
+                INVESTIGATE
+            </button>
+
+        </div>
+
+
+        <div class="door-card">
+
+            <div class="door-icon">💻</div>
+
+            <h3>COMPUTER ROOM</h3>
+
+            <p>
+                Decode the encrypted research data.
+            </p>
+
+            <button class="secondary-button">
+                INVESTIGATE
+            </button>
+
+        </div>
+
+
+        <div class="door-card">
+
+            <div class="door-icon">🚪</div>
+
+            <h3>SECURITY EXIT</h3>
+
+            <p>
+                Restore the emergency system and escape.
+            </p>
+
+            <button class="secondary-button">
+                INVESTIGATE
+            </button>
+
+        </div>
+
+
+    </div>
+
+
+    <div id="missionResult"
+         class="mission-result">
+
+        <div class="result-box">
+
+            <h1>MISSION COMPLETE</h1>
+
+            <p>
+                You successfully escaped the facility.
+            </p>
+
+            <br>
+
+            <button class="primary-button"
+                    onclick="goToMainMenu()">
+
+                MAIN MENU
+
+            </button>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+<script src="/js/pandemic-sound.js"></script>
+<script src="/js/pandemic.js"></script>
+<script src="/js/student.js"></script>
+
+    <script th:src="@{/js/bgm.js}"></script>
+</body>
+</html>

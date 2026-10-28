@@ -1,0 +1,683 @@
+/* ==========================================
+   PANDEMIC ESCAPE CREATIVE THEME
+   ========================================== */
+
+body.pandemic-page {
+    min-height: 100vh;
+
+    background:
+        radial-gradient(
+            circle at 50% 20%,
+            rgba(0, 217, 255, 0.10),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #071021,
+            #090e24 50%,
+            #11153a
+        );
+}
+
+/* Glowing frame */
+
+body.pandemic-page::after {
+   display: none !important;
+}
+
+/* Lockdown status */
+
+.system-status {
+    padding-top: 15px;
+
+    text-align: center;
+
+    color: var(--danger);
+
+    font-size: 23px;
+    font-weight: 500;
+
+    letter-spacing: 5px;
+
+    text-shadow:
+        0 0 12px rgba(255, 77, 90, 0.45);
+}
+
+/* Scenario heading */
+
+.scenario-heading {
+    margin-top: 55px;
+
+    text-align: center;
+
+    font-size: clamp(36px, 5vw, 50px);
+
+    font-weight: 700;
+}
+
+.scenario-heading span {
+    color: var(--accent);
+}
+
+/* Three cards */
+
+.scenario-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 38px;
+
+    margin-top: 38px;
+}
+
+.scenario-card {
+    min-height: 430px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+    padding: 30px 25px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(31, 43, 101, 0.95),
+            rgba(25, 28, 70, 0.95)
+        );
+
+    border: 1px solid #465574;
+
+    border-radius: 20px;
+
+    transition: 0.3s ease;
+}
+
+.scenario-card:hover {
+    transform: translateY(-7px);
+
+    border-color: var(--accent);
+
+    box-shadow:
+        0 0 25px rgba(0, 217, 255, 0.25);
+}
+
+.scenario-icon {
+    font-size: 68px;
+
+    margin-bottom: 24px;
+}
+
+.scenario-card h2 {
+    margin-bottom: 18px;
+
+    color: var(--accent);
+
+    font-size: 34px;
+}
+
+.scenario-card p {
+    min-height: 58px;
+
+    max-width: 350px;
+
+    color: var(--text);
+
+    font-size: 17px;
+
+    margin-bottom: 28px;
+}
+
+.start-button {
+    padding: 14px 30px;
+
+    color: white;
+
+    border: none;
+
+    border-radius: 30px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #087EF5,
+            #7837E8
+        );
+
+    font-size: 16px;
+    font-weight: 600;
+
+    transition: 0.25s ease;
+}
+
+.start-button:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 0 25px rgba(0, 217, 255, 0.35);
+}
+
+/* Story page */
+
+.story-layout {
+    max-width: 950px;
+    margin: 45px auto;
+}
+
+.story-panel {
+    padding: 32px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(28, 39, 91, 0.92),
+            rgba(17, 24, 50, 0.94)
+        );
+
+    border: 1px solid #465574;
+
+    border-radius: 16px;
+}
+
+.story-panel h2 {
+    color: var(--accent);
+    font-size: 26px;
+    margin-bottom: 20px;
+}
+
+.story-panel p {
+    color: var(--text);
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+/* Mission information */
+
+.mission-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 18px;
+
+    margin-top: 25px;
+}
+
+.mission-box {
+    padding: 20px;
+
+    text-align: center;
+
+    background: rgba(17, 24, 32, 0.85);
+
+    border: 1px solid #465574;
+
+    border-radius: 12px;
+}
+
+.mission-box small {
+    display: block;
+
+    color: var(--muted);
+
+    margin-bottom: 5px;
+}
+
+.mission-box strong {
+    color: var(--accent);
+
+    font-size: 18px;
+}
+
+/* Role gameplay */
+
+.role-header {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 35px;
+}
+
+.role-title {
+    font-size: 34px;
+}
+
+.role-title span {
+    color: var(--accent);
+}
+
+.role-description {
+    color: var(--muted);
+}
+
+/* Door cards */
+
+.door-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 25px;
+
+    margin-top: 35px;
+}
+
+.door-card {
+    min-height: 260px;
+
+    padding: 28px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: space-between;
+
+    text-align: center;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(31, 43, 101, 0.9),
+            rgba(20, 25, 62, 0.95)
+        );
+
+    border: 1px solid #465574;
+
+    border-radius: 16px;
+
+    transition: 0.3s ease;
+}
+
+.door-card:hover {
+    transform: translateY(-5px);
+
+    border-color: var(--accent);
+
+    box-shadow:
+        0 0 20px rgba(0, 217, 255, 0.2);
+}
+
+.door-icon {
+    font-size: 50px;
+}
+
+.door-card h3 {
+    color: var(--accent);
+    font-size: 23px;
+}
+
+.door-card p {
+    color: var(--muted);
+}
+
+/* Responsive */
+
+@media (max-width: 900px) {
+
+    .scenario-grid,
+    .door-grid,
+    .mission-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .scenario-card {
+        min-height: 350px;
+    }
+
+    .role-header {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+    }
+}
+
+@media (max-width: 500px) {
+
+    .system-status {
+        font-size: 14px;
+        letter-spacing: 3px;
+    }
+
+    .scenario-heading {
+        font-size: 34px;
+    }
+}
+
+.scenario-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 490px));
+    justify-content: center;
+    align-items: stretch;
+    gap: 50px;
+    width: 100%;
+    margin: 40px auto 0;
+}
+/* ================================
+   PUZZLE MODAL
+================================ */
+/* ==========================================
+   PUZZLE MODAL - FULL SCROLL FIX
+   ========================================== */
+
+#puzzleModal {
+    position: fixed;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    display: none;
+
+    align-items: flex-start;
+    justify-content: center;
+
+    padding: 30px 20px;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    background: rgba(0, 0, 0, 0.75);
+
+    z-index: 9999;
+}
+
+#puzzleModal.active {
+    display: flex;
+}
+
+
+/* MODAL BOX */
+
+.puzzle-modal-box {
+    position: relative;
+
+    width: min(900px, 100%);
+
+    min-height: auto;
+
+    margin: 0 auto 30px;
+
+    background: rgba(17, 24, 32, 0.98);
+
+    border: 1px solid #00D9FF;
+
+    border-radius: 12px;
+
+    padding: 40px;
+
+    box-shadow:
+        0 0 30px rgba(0, 217, 255, 0.25);
+
+    flex-shrink: 0;
+}
+
+
+/* CONTENT */
+
+.puzzle-content {
+    width: 100%;
+    overflow: visible;
+}
+
+
+/* MCQ OPTIONS */
+
+.mcq-options {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 12px;
+
+    margin-top: 25px;
+
+    margin-bottom: 25px;
+}
+
+.mcq-option {
+    width: 100%;
+
+    min-height: 50px;
+
+    flex-shrink: 0;
+
+    padding: 14px 18px;
+
+    text-align: left;
+
+    background: rgba(17, 24, 32, 0.9);
+
+    border: 1px solid #26323D;
+
+    border-radius: 8px;
+
+    color: #F2F5F7;
+
+    font-family: "Space Grotesk", sans-serif;
+
+    font-size: 15px;
+
+    cursor: pointer;
+
+    transition: 0.25s;
+}
+
+.mcq-option:hover {
+    border-color: #00D9FF;
+
+    color: #00D9FF;
+
+    box-shadow:
+        0 0 12px rgba(0, 217, 255, 0.25);
+}
+
+
+/* CLOSE BUTTON */
+
+.close-puzzle {
+    position: absolute;
+
+    top: 20px;
+    right: 20px;
+
+    width: 52px;
+    height: 52px;
+
+    border: 1px solid #26323D;
+
+    border-radius: 8px;
+
+    background: transparent;
+
+    color: #9AA6B2;
+
+    font-size: 25px;
+
+    cursor: pointer;
+}
+
+.close-puzzle:hover {
+    border-color: #00D9FF;
+
+    color: #00D9FF;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 700px) {
+
+    #puzzleModal {
+        padding: 15px;
+    }
+
+    .puzzle-modal-box {
+        padding: 30px 20px;
+    }
+
+}
+
+/* ==========================================
+   MCQ OPTIONS
+   ========================================== */
+
+.mcq-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+.mcq-option {
+    width: 100%;
+    padding: 14px 18px;
+
+    text-align: left;
+
+    background: rgba(17, 24, 32, 0.9);
+
+    border: 1px solid #26323D;
+    border-radius: 8px;
+
+    color: #F2F5F7;
+
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 15px;
+
+    cursor: pointer;
+
+    transition: 0.25s;
+}
+
+.mcq-option:hover {
+    border-color: #00D9FF;
+
+    color: #00D9FF;
+
+    box-shadow:
+        0 0 12px rgba(0, 217, 255, 0.25);
+
+    transform: translateX(4px);
+}
+
+.mcq-option:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+
+/* ==========================================
+   LIVES
+   ========================================== */
+
+.lives-display {
+    text-align: center;
+
+    font-family: "Space Grotesk", sans-serif;
+
+    font-size: 18px;
+
+    color: #F2F5F7;
+
+    padding: 12px 20px;
+
+    border: 1px solid #26323D;
+
+    border-radius: 12px;
+
+    background: rgba(17, 24, 32, 0.85);
+
+    box-shadow:
+        0 0 15px rgba(0, 217, 255, 0.12);
+}
+.retry-button {
+    margin-top: 10px;
+    min-width: 130px;
+}
+
+/* ---- Responsive audit (320px - 1440px+) ---- */
+/* the 2-column role grid is declared above, after the first media query, so repeat the mobile rule */
+@media (max-width: 900px) { .scenario-grid { grid-template-columns: 1fr; } }
+@media (max-width: 800px), (pointer: coarse) {
+    .start-button, .retry-button, .mcq-option, .nav-button, .secondary-button, .primary-button { min-height: 44px; }
+}
+
+
+/* ---- Doctor mission: outbreak status panel, door states, answer feedback ---- */
+.doctor-banner {
+    margin: 0 0 18px;
+    padding: 12px 16px;
+    border: 1px solid var(--danger);
+    border-radius: 12px;
+    background: rgba(255, 77, 90, 0.12);
+    color: var(--text);
+}
+.doctor-banner[hidden] { display: none; }
+
+.outbreak-panel {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    gap: 20px;
+    align-items: end;
+    margin: 0 0 24px;
+    padding: 18px 22px;
+    background: rgba(17, 24, 32, 0.85);
+    border: 1px solid #26323D;
+    border-radius: 14px;
+}
+.meter-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 8px;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+.meter-label { color: #9AA6B2; }
+.meter-value { color: #F2F5F7; font-weight: 700; font-variant-numeric: tabular-nums; }
+.meter-track {
+    height: 10px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.08);
+    overflow: hidden;
+}
+.meter-fill { height: 100%; width: 0; border-radius: inherit; transition: width .6s ease; }
+.meter-infection { background: linear-gradient(90deg, #FFB547, #FF4D5A); }
+.meter-recovery  { background: linear-gradient(90deg, #00D9FF, #35E08A); }
+.meter-count { min-width: 150px; }
+.meter-count .meter-value { font-size: 20px; }
+
+.door-card.is-locked { opacity: .55; filter: grayscale(.5); }
+.door-card.is-solved { border-color: #35E08A; box-shadow: 0 0 18px rgba(53, 224, 138, .18); }
+.door-card .secondary-button:disabled { cursor: not-allowed; opacity: .75; }
+
+.patient-brief { color: #9AA6B2; font-style: italic; margin-bottom: 12px; }
+.mcq-option.is-correct { border-color: #35E08A; background: rgba(53, 224, 138, .15); }
+.mcq-option.is-wrong   { border-color: #FF4D5A; background: rgba(255, 77, 90, .15); }
+
+@media (max-width: 800px) {
+    .outbreak-panel { grid-template-columns: 1fr; gap: 14px; padding: 16px; }
+    .meter-count { min-width: 0; }
+}
+
+/* Doctor puzzle feedback + evidence note (used by doctor.js) */
+.puzzle-note { margin: 12px 0 16px; padding: 12px 16px; border: 1px solid #26323D; border-radius: 8px; background: rgba(255,255,255,.04); }
+.puzzle-note p { margin: 4px 0; }
+.correct-feedback, .wrong-feedback { margin-top: 16px; padding: 12px 16px; border-radius: 8px; font-weight: 600; }
+.correct-feedback { color: #35E08A; border: 1px solid #35E08A; background: rgba(53,224,138,.10); }
+.wrong-feedback { color: #FF4D5A; border: 1px solid #FF4D5A; background: rgba(255,77,90,.10); }
+.wrong-feedback .retry-button { margin-top: 12px; }

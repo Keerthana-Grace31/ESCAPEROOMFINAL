@@ -1,0 +1,794 @@
+/* =========================================================
+   DIGITAL ESCAPE ROOM
+   MAIN INDEX PAGE
+   ========================================================= */
+
+:root {
+
+    --bg: #0B0F14;
+
+    --panel: #111820;
+
+    --panel-light: #151F29;
+
+    --accent: #00D9FF;
+
+    --text: #F2F5F7;
+
+    --muted: #9AA6B2;
+
+    --border: #26323D;
+
+    --success: #35E08A;
+
+    --warning: #FFB547;
+
+    --danger: #FF4D5A;
+
+    --radius-card: 12px;
+
+    --radius-button: 8px;
+
+    --space-1: 8px;
+
+    --space-2: 16px;
+
+    --space-3: 24px;
+
+    --space-4: 32px;
+
+    --space-5: 48px;
+
+    --space-6: 64px;
+}
+
+
+/* =========================================================
+   RESET
+   ========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+
+    margin: 0;
+
+    background: var(--bg);
+
+    color: var(--text);
+
+    font-family:
+        "Space Grotesk",
+        Arial,
+        sans-serif;
+
+    line-height: 1.6;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.main-header {
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 100;
+
+    background:
+        rgba(11, 15, 20, 0.95);
+
+    border-bottom:
+        1px solid var(--border);
+
+    backdrop-filter: blur(12px);
+}
+
+.header-inner {
+
+    width: min(
+        1200px,
+        calc(100% - 64px)
+    );
+
+    margin: 0 auto;
+
+    min-height: 64px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+}
+
+.logo {
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    letter-spacing: 1.5px;
+
+    color: var(--text);
+}
+
+.main-nav {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 32px;
+}
+
+.nav-link {
+
+    color: var(--muted);
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    letter-spacing: 1px;
+
+    transition:
+        color 0.2s ease;
+}
+
+.nav-link:hover {
+    color: var(--accent);
+}
+
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.hero {
+
+    min-height: 520px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+    padding: 64px 32px;
+
+    background:
+
+        radial-gradient(
+            circle at 50% 0%,
+            rgba(0, 217, 255, 0.09),
+            transparent 45%
+        ),
+
+        var(--bg);
+}
+
+.hero-content {
+    max-width: 760px;
+}
+
+.hero-kicker {
+
+    margin: 0 0 8px;
+
+    color: var(--accent);
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    letter-spacing: 2px;
+}
+
+.hero h1 {
+
+    margin: 0;
+
+    font-size: clamp(
+        42px,
+        8vw,
+        76px
+    );
+
+    line-height: 1;
+
+    letter-spacing: -2px;
+
+    font-weight: 700;
+}
+
+.hero-description {
+
+    max-width: 600px;
+
+    margin:
+        24px auto 32px;
+
+    color: var(--muted);
+
+    font-size: 16px;
+}
+
+.primary-button,
+.mission-button {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-height: 42px;
+
+    padding:
+        10px 20px;
+
+    border:
+        1px solid var(--accent);
+
+    border-radius:
+        var(--radius-button);
+
+    background:
+        rgba(0, 217, 255, 0.03);
+
+    color: var(--accent);
+
+    font-family: inherit;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.5px;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.primary-button:hover,
+.mission-button:hover {
+
+    background:
+        rgba(0, 217, 255, 0.10);
+
+    color: var(--text);
+
+    transform:
+        translateY(-1px);
+}
+
+
+/* =========================================================
+   MISSION SECTION
+   ========================================================= */
+
+.mission-section {
+
+    width: min(
+        1200px,
+        calc(100% - 64px)
+    );
+
+    margin: 0 auto;
+
+    padding:
+        64px 0;
+}
+
+.section-heading {
+
+    margin-bottom: 48px;
+}
+
+.section-kicker {
+
+    margin: 0 0 4px;
+
+    color: var(--accent);
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    letter-spacing: 1.8px;
+}
+
+.section-heading h2 {
+
+    margin: 0;
+
+    font-size: 32px;
+
+    line-height: 1.2;
+}
+
+.section-heading > p:last-child {
+
+    margin:
+        8px 0 0;
+
+    color: var(--muted);
+
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   MISSION GRID
+   ========================================================= */
+
+.mission-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 24px;
+}
+
+
+/* =========================================================
+   MISSION CARD
+   ========================================================= */
+
+.mission-card {
+
+    overflow: hidden;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        var(--radius-card);
+
+    background:
+        rgba(17, 24, 32, 0.85);
+
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.mission-card:hover {
+
+    transform:
+        translateY(-3px);
+
+    border-color:
+        rgba(0, 217, 255, 0.5);
+}
+
+
+/* =========================================================
+   MISSION IMAGE
+   ========================================================= */
+
+.mission-image {
+
+    height: 230px;
+
+    overflow: hidden;
+
+    background:
+        #17202A;
+}
+
+.mission-image img {
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+    display: block;
+
+    transition:
+        transform 0.4s ease;
+}
+
+.mission-card:hover
+.mission-image img {
+
+    transform:
+        scale(1.03);
+}
+
+
+/* =========================================================
+   MISSION CONTENT
+   ========================================================= */
+
+.mission-content {
+
+    padding: 24px;
+}
+
+.mission-number {
+
+    display: block;
+
+    margin-bottom: 2px;
+
+    color: var(--accent);
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    letter-spacing: 1.5px;
+}
+
+.mission-category {
+
+    display: block;
+
+    color: var(--muted);
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 1.5px;
+}
+
+.mission-content h3 {
+
+    margin:
+        4px 0 8px;
+
+    font-size: 24px;
+
+    line-height: 1.2;
+}
+
+.mission-content p {
+
+    min-height: 72px;
+
+    margin:
+        0 0 20px;
+
+    color: var(--muted);
+
+    font-size: 14px;
+
+    line-height: 1.6;
+}
+
+.mission-button {
+
+    min-height: 40px;
+
+    padding:
+        8px 16px;
+
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   CHALLENGE
+   ========================================================= */
+
+.challenge-section {
+
+    border-top:
+        1px solid var(--border);
+
+    border-bottom:
+        1px solid var(--border);
+
+    background:
+        rgba(17, 24, 32, 0.65);
+}
+
+.challenge-content {
+
+    width: min(
+        1200px,
+        calc(100% - 64px)
+    );
+
+    margin: 0 auto;
+
+    padding:
+        64px 0;
+}
+
+.challenge-content h2 {
+
+    margin:
+        4px 0 20px;
+
+    font-size: clamp(
+        32px,
+        5vw,
+        52px
+    );
+
+    line-height: 1.05;
+}
+
+.challenge-content > p {
+
+    max-width: 650px;
+
+    color: var(--muted);
+
+    font-size: 15px;
+}
+
+
+/* =========================================================
+   CHALLENGE POINTS
+   ========================================================= */
+
+.challenge-points {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 16px;
+
+    margin-top: 32px;
+}
+
+.challenge-points div {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 4px;
+
+    padding:
+        16px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 8px;
+
+    background:
+        rgba(17, 24, 32, 0.7);
+}
+
+.challenge-points strong {
+
+    color: var(--accent);
+
+    font-size: 12px;
+}
+
+.challenge-points span {
+
+    color: var(--muted);
+
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.main-footer {
+
+    padding:
+        24px 32px;
+
+    text-align: center;
+
+    background:
+        rgba(15, 25, 35, 0.92);
+
+    border-top:
+        1px solid #334454;
+}
+
+.footer-title {
+
+    color: var(--text);
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    letter-spacing: 1px;
+}
+
+.footer-tagline {
+
+    margin-top: 4px;
+
+    color: var(--muted);
+
+    font-size: 13px;
+}
+
+.footer-copy {
+
+    margin-top: 8px;
+
+    color: #64748B;
+
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 800px) {
+
+    .header-inner,
+    .mission-section,
+    .challenge-content {
+
+        width:
+            min(
+                100% - 32px,
+                1200px
+            );
+    }
+
+    .main-nav {
+        gap: 16px;
+    }
+
+    .mission-grid {
+
+        grid-template-columns:
+            1fr;
+    }
+
+    .challenge-points {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+}
+
+
+@media (max-width: 520px) {
+
+    .header-inner {
+
+        min-height: 56px;
+    }
+
+    .logo {
+
+        font-size: 12px;
+    }
+
+    .main-nav {
+
+        display: none;
+    }
+
+    .hero {
+
+        min-height: 480px;
+
+        padding:
+            48px 16px;
+    }
+
+    .hero h1 {
+
+        font-size: 42px;
+    }
+
+    .mission-section,
+    .challenge-content {
+
+        padding:
+            48px 0;
+    }
+
+    .mission-image {
+
+        height: 190px;
+    }
+
+    .challenge-points {
+
+        grid-template-columns:
+            1fr;
+    }
+}
+
+/* =========================================================
+   SOUND BUTTON (header)
+   ========================================================= */
+
+.sound-button {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    padding: 6px 12px;
+
+    border: 1px solid var(--border);
+
+    border-radius: var(--radius-button);
+
+    background: transparent;
+
+    color: var(--muted);
+
+    font-family: inherit;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    letter-spacing: 1px;
+
+    cursor: pointer;
+
+    transition:
+        color 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.sound-button:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+}
+
+.sound-button[aria-pressed="false"] {
+    opacity: 0.7;
+}
+
+/* keep the button on phones even though the text links are hidden */
+@media (max-width: 520px) {
+
+    .main-nav {
+        display: flex;
+        gap: 8px;
+    }
+
+    .main-nav .nav-link {
+        display: none;
+    }
+
+    .sound-button .sound-label {
+        display: none;
+    }
+}

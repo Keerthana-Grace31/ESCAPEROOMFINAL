@@ -1,0 +1,113 @@
+/* ==========================================================================
+   ZOMBIE world - scenario-only styling (backgrounds, atmosphere, puzzle layout).
+   Shared UI (fonts, buttons, panels, inputs, timer...) is in style.css.
+   ========================================================================== */
+
+/* ---- Scene background: art + dark overlay so text stays readable ------------- */
+body.scene { --scene-img: url('/images/zombie/city.svg'); }
+body.scene-school   { --scene-img: url('/images/zombie/school.svg'); }
+body.scene-hospital { --scene-img: url('/images/zombie/hospital.svg'); }
+
+body.scene::before {
+    content: ''; position: fixed; inset: 0; z-index: 0;
+    background: #070b0f var(--scene-img) center bottom / cover no-repeat;
+}
+body.scene::after {      /* readability overlay + vignette */
+    content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background:
+        radial-gradient(ellipse at center, rgba(5, 8, 11, 0.05) 0%, rgba(5, 8, 11, 0.50) 100%),
+        linear-gradient(180deg, rgba(5, 8, 11, 0.50) 0%, rgba(5, 8, 11, 0.12) 45%, rgba(5, 8, 11, 0.45) 100%);
+}
+
+/* Drifting fog */
+.fog { position: fixed; left: -50%; width: 200%; height: 38vh; bottom: 0; z-index: 0; pointer-events: none; opacity: 0.35;
+       background: radial-gradient(ellipse at 20% 60%, rgba(170, 195, 190, 0.35), transparent 55%),
+                   radial-gradient(ellipse at 70% 40%, rgba(170, 195, 190, 0.25), transparent 60%);
+       animation: drift 60s linear infinite alternate; }
+.fog.fog-2 { height: 28vh; opacity: 0.25; animation-duration: 95s; animation-direction: alternate-reverse; }
+@keyframes drift { from { transform: translateX(0); } to { transform: translateX(22%); } }
+
+/* Red flash when a life is lost */
+.damage-flash { position: fixed; inset: 0; z-index: 60; pointer-events: none; opacity: 0;
+                background: radial-gradient(ellipse at center, rgba(255, 77, 90, 0) 35%, rgba(255, 77, 90, 0.55) 100%); }
+body.damage .damage-flash { animation: damage 0.7s ease-out; }
+@keyframes damage { 0% { opacity: 1; } 100% { opacity: 0; } }
+
+/* Zombie accent: the logo-mark glows sickly green */
+.brand .mark { text-shadow: 0 0 10px rgba(53, 224, 138, 0.6); }
+
+/* ---- Hub ------------------------------------------------------------------------ */
+.hero { text-align: center; padding: var(--space-5) var(--space-3); }
+.hero > * + * { margin-top: var(--space-2); }
+.hero h1 .accent { color: var(--color-danger); text-shadow: 0 0 24px rgba(255, 77, 90, 0.45); animation: flicker 6s infinite; }
+.hero p { max-width: 560px; margin-left: auto; margin-right: auto; color: var(--color-text); opacity: 0.85; }
+@keyframes flicker { 0%, 92%, 100% { opacity: 1; } 93% { opacity: 0.4; } 95% { opacity: 1; } 96% { opacity: 0.55; } }
+
+.section-title { margin-bottom: var(--space-2); }
+.rules { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: var(--space-2); }
+.rule { border: 1px solid var(--color-border); border-radius: 10px; padding: var(--space-2); background: rgba(8, 12, 16, 0.55); }
+.rule .icon { font-size: 26px; display: block; margin-bottom: var(--space-1); }
+.rule h3 { font-size: 17px; margin-bottom: 4px; }
+.rule p { font-size: 14px; }
+
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: var(--space-2); }
+.stat { border: 1px solid var(--color-border); border-radius: 10px; padding: var(--space-2); background: rgba(8, 12, 16, 0.55); }
+.stat b { display: block; font-size: 28px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.stat span { font-size: 13px; color: var(--color-muted); }
+.stat.good b { color: var(--color-success); }
+.stat.bad b { color: var(--color-danger); }
+.best { margin-top: var(--space-2); font-size: 14px; color: var(--color-muted); }
+
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: var(--space-3); }
+.scenario-card {
+    display: flex; flex-direction: column; text-decoration: none; color: var(--color-text); overflow: hidden;
+    background: var(--color-panel); border: 1px solid var(--color-border); border-radius: var(--radius-card);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
+    transition: border-color 0.15s ease, transform 0.12s ease, box-shadow 0.15s ease;
+}
+.scenario-card:hover { border-color: var(--color-accent); transform: translateY(-3px); box-shadow: 0 12px 36px rgba(0, 217, 255, 0.12); }
+.scenario-card .thumb { height: 170px; background-size: cover; background-position: center bottom; border-bottom: 1px solid var(--color-border); }
+.scenario-card .thumb.school   { background-image: url('/images/zombie/school.svg'); }
+.scenario-card .thumb.hospital { background-image: url('/images/zombie/hospital.svg'); }
+.scenario-card .body { padding: var(--space-3); display: flex; flex-direction: column; gap: var(--space-2); flex: 1; }
+.scenario-card .place { font-size: 13px; letter-spacing: 0.1em; color: var(--color-muted); font-weight: 600; }
+.scenario-card .meta { display: flex; gap: var(--space-1); flex-wrap: wrap; margin-top: auto; }
+.scenario-card .btn { align-self: flex-start; }
+.pill { font-size: 12px; border: 1px solid var(--color-border); border-radius: 999px; padding: 4px 10px; color: var(--color-muted); }
+.pill.active  { color: var(--color-warning); border-color: var(--color-warning); }
+.pill.victory { color: var(--color-success); border-color: var(--color-success); }
+.pill.failed  { color: var(--color-danger);  border-color: var(--color-danger); }
+
+/* ---- Scenario pages ---------------------------------------------------------------- */
+.scenario-title { display: flex; flex-direction: column; gap: 4px; }
+.puzzle-card .puzzle-meta { display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-2); flex-wrap: wrap; }
+.puzzle-card .puzzle-title { font-size: 24px; }
+.puzzle-story { color: var(--color-text); opacity: 0.85; }
+.puzzle-visual {
+    font-size: 28px; font-weight: 700; letter-spacing: 0.12em; text-align: center; font-variant-numeric: tabular-nums;
+    padding: var(--space-3); border: 1px dashed var(--color-border); border-radius: 10px; background: rgba(5, 8, 11, 0.55);
+    overflow-wrap: anywhere; color: var(--color-text);
+}
+.puzzle-question { font-size: 20px; font-weight: 600; }
+.puzzle-actions { display: flex; justify-content: space-between; align-items: center; gap: var(--space-2); flex-wrap: wrap; }
+
+/* School: chalk-and-locker flavour */
+.scene-school .puzzle-card { border-top: 3px solid #35e08a55; }
+.scene-school .puzzle-visual { border-color: rgba(242, 245, 247, 0.28); box-shadow: inset 0 0 28px rgba(53, 224, 138, 0.08); }
+
+/* Hospital: ECG line along the top of the puzzle card, red/green emergency tint */
+.scene-hospital .puzzle-card { border-top: 3px solid #ff4d5a66; position: relative; }
+.scene-hospital .puzzle-card::before {
+    content: ''; position: absolute; left: 0; right: 0; top: 0; height: 28px; opacity: 0.55; pointer-events: none;
+    background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='28' viewBox='0 0 240 28'><path d='M0 14 H70 L80 14 L88 3 L98 25 L106 14 H150 L158 10 L166 14 H240' fill='none' stroke='%2335E08A' stroke-width='1.5'/></svg>") repeat-x;
+    animation: ecg 3.2s linear infinite;
+}
+@keyframes ecg { to { background-position: -240px 0; } }
+.scene-hospital .puzzle-visual { border-color: rgba(53, 224, 138, 0.35); }
+
+@media (max-width: 600px) {
+    .hero { padding: var(--space-4) var(--space-2); }
+    .puzzle-visual { font-size: 20px; padding: var(--space-2); }
+    .puzzle-card .puzzle-title { font-size: 20px; }
+    .scenario-card .thumb { height: 130px; }
+}

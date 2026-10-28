@@ -1,0 +1,244 @@
+/* ==========================================================================
+   DIGITAL ESCAPE ROOM - shared visual system (common to every scenario)
+   Font, colours, spacing, buttons, inputs, panels, timer, hints, feedback,
+   mission screens, header and footer live here. Scenario art lives elsewhere.
+   ========================================================================== */
+
+:root {
+    --color-bg: #0B0F14;
+    --color-panel: rgba(17, 24, 32, 0.85);
+    --color-panel-solid: #111820;
+    --color-accent: #00D9FF;
+    --color-text: #F2F5F7;
+    --color-muted: #9AA6B2;
+    --color-border: #26323D;
+    --color-success: #35E08A;
+    --color-warning: #FFB547;
+    --color-danger: #FF4D5A;
+
+    --radius-card: 12px;
+    --radius-button: 8px;
+
+    --space-1: 8px;
+    --space-2: 16px;
+    --space-3: 24px;
+    --space-4: 32px;
+    --space-5: 48px;
+    --space-6: 64px;
+
+    --font: 'Space Grotesk', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+    font-family: var(--font);
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--color-text);
+    background: var(--color-bg);
+    min-height: 100vh;
+}
+
+[hidden] { display: none !important; }
+
+h1, h2, h3, p { margin: 0; }
+h1 { font-size: 44px; font-weight: 700; line-height: 1.1; letter-spacing: 0.02em; }
+h2 { font-size: 28px; font-weight: 700; line-height: 1.2; }
+h3 { font-size: 20px; font-weight: 600; line-height: 1.3; }
+p  { font-size: 16px; color: var(--color-muted); }
+.small { font-size: 13px; color: var(--color-muted); }
+.eyebrow { font-size: 14px; font-weight: 600; letter-spacing: 0.1em; color: var(--color-accent); }
+
+:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+
+/* ---- Layout --------------------------------------------------------------- */
+.page { min-height: 100vh; display: flex; flex-direction: column; position: relative; z-index: 1; }
+.container {
+    flex: 1; width: 100%; max-width: 1040px; margin: 0 auto;
+    padding: var(--space-4) var(--space-4) var(--space-5);
+    display: flex; flex-direction: column; gap: var(--space-4);
+}
+
+/* ---- Cards / panels ------------------------------------------------------- */
+.panel {
+    background: var(--color-panel);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-card);
+    padding: var(--space-3);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(3px);
+}
+.panel > * + * { margin-top: var(--space-2); }
+
+/* ---- Header / navigation ---------------------------------------------------- */
+.site-header {
+    background: rgba(11, 15, 20, 0.88);
+    border-bottom: 1px solid var(--color-border);
+    backdrop-filter: blur(6px);
+}
+.header-inner {
+    max-width: 1040px; margin: 0 auto; padding: var(--space-2) var(--space-4);
+    display: flex; align-items: center; justify-content: space-between; gap: var(--space-2);
+}
+.brand { font-weight: 700; letter-spacing: 0.1em; font-size: 15px; color: var(--color-text); text-decoration: none; }
+.brand .mark { color: var(--color-accent); margin-right: var(--space-1); }
+.nav { display: flex; gap: var(--space-1); align-items: center; }
+
+/* ---- Buttons (one shape for the whole application) ----------------------- */
+.btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: var(--space-1);
+    font-family: var(--font); font-size: 15px; font-weight: 600; letter-spacing: 0.04em;
+    text-decoration: none; cursor: pointer;
+    color: var(--color-accent); background: transparent;
+    border: 1px solid var(--color-accent); border-radius: var(--radius-button);
+    padding: 10px 20px;
+    transition: background 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+.btn:hover:not(:disabled) { background: rgba(0, 217, 255, 0.14); box-shadow: 0 0 14px rgba(0, 217, 255, 0.25); }
+.btn:active:not(:disabled) { transform: translateY(1px); }
+.btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.btn-secondary { color: var(--color-text); border-color: var(--color-border); }
+.btn-secondary:hover:not(:disabled) { border-color: var(--color-accent); color: var(--color-accent); box-shadow: none; }
+.btn-danger { color: var(--color-danger); border-color: var(--color-danger); }
+.btn-danger:hover:not(:disabled) { background: rgba(255, 77, 90, 0.14); box-shadow: 0 0 14px rgba(255, 77, 90, 0.25); }
+.btn-small { font-size: 13px; padding: 8px 16px; }
+.btn-block { width: 100%; }
+
+/* ---- Inputs ---------------------------------------------------------------- */
+.input {
+    width: 100%;
+    font-family: var(--font); font-size: 16px; color: var(--color-text);
+    background: rgba(8, 12, 16, 0.6);
+    border: 1px solid var(--color-border); border-radius: var(--radius-button);
+    padding: 10px 14px;
+    transition: border-color 0.15s ease;
+}
+.input::placeholder { color: #5d6b79; }
+.input:focus { outline: none; border-color: var(--color-accent); }
+.input:disabled { opacity: 0.5; }
+.field-row { display: flex; gap: var(--space-2); }
+.field-row .input { flex: 1; }
+
+/* ---- Timer ----------------------------------------------------------------- */
+.timer-label { font-size: 13px; letter-spacing: 0.1em; color: var(--color-muted); font-weight: 600; }
+.timer-value {
+    font-size: 36px; font-weight: 700; font-variant-numeric: tabular-nums; line-height: 1.1;
+    color: var(--color-accent); transition: color 0.3s ease;
+}
+.timer-value.low { color: var(--color-warning); }
+.timer-value.critical { color: var(--color-danger); animation: pulse 1s ease-in-out infinite; }
+
+/* ---- Lives ------------------------------------------------------------------ */
+.hearts { font-size: 30px; line-height: 1.2; letter-spacing: 4px; }
+.heart.lost { filter: grayscale(1) brightness(0.55); opacity: 0.5; }
+
+/* ---- HUD row ---------------------------------------------------------------- */
+.hud { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-2); }
+.hud .panel { padding: var(--space-2) var(--space-3); display: flex; flex-direction: column; gap: 4px; }
+.hud .panel > * + * { margin-top: 0; }
+.progress-track { height: 6px; border-radius: 999px; background: var(--color-border); overflow: hidden; margin-top: var(--space-1); }
+.progress-bar { height: 100%; width: 0; background: var(--color-success); transition: width 0.4s ease; }
+
+/* ---- Hint ------------------------------------------------------------------- */
+.hint-panel {
+    background: var(--color-panel); border: 1px solid var(--color-warning);
+    border-radius: var(--radius-card); padding: var(--space-3);
+}
+.hint-panel h3 { font-size: 14px; letter-spacing: 0.1em; color: var(--color-warning); margin-bottom: var(--space-1); }
+.hint-panel p { color: var(--color-text); font-size: 15px; }
+.hint-panel p + p { margin-top: var(--space-1); }
+
+/* ---- Correct / wrong feedback ----------------------------------------------- */
+.feedback { border-radius: var(--radius-card); padding: var(--space-3); border: 1px solid; text-align: center; }
+.feedback > * + * { margin-top: var(--space-2); }
+.feedback h3 { font-size: 22px; letter-spacing: 0.08em; }
+.feedback p { color: var(--color-text); }
+.feedback.correct { border-color: var(--color-success); background: rgba(53, 224, 138, 0.08); }
+.feedback.correct h3 { color: var(--color-success); }
+.feedback.wrong { border-color: var(--color-danger); background: rgba(255, 77, 90, 0.08); }
+.feedback.wrong h3 { color: var(--color-danger); }
+.status-line { min-height: 22px; font-size: 14px; font-weight: 500; }
+.status-line.ok { color: var(--color-success); }
+.status-line.err { color: var(--color-danger); }
+.status-line.warn { color: var(--color-warning); }
+
+/* ---- Mission accomplished / failed ------------------------------------------ */
+.overlay {
+    position: fixed; inset: 0; z-index: 50;
+    display: flex; align-items: center; justify-content: center; padding: var(--space-3);
+    background: rgba(5, 8, 11, 0.82); backdrop-filter: blur(4px);
+    overflow-y: auto;
+}
+.mission-panel {
+    width: 100%; max-width: 520px; text-align: center;
+    background: var(--color-panel-solid); border: 1px solid var(--color-border);
+    border-radius: var(--radius-card); padding: var(--space-4);
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.6);
+}
+.mission-panel > * + * { margin-top: var(--space-2); }
+.mission-panel .mission-icon { font-size: 48px; font-weight: 700; line-height: 1; }
+.mission-panel h2 { font-size: 30px; letter-spacing: 0.04em; }
+.mission-panel .objective { font-size: 13px; font-weight: 600; letter-spacing: 0.14em; color: var(--color-muted); }
+.mission-panel .message { color: var(--color-text); }
+.mission-panel .actions { display: flex; flex-direction: column; gap: var(--space-1); margin-top: var(--space-3); }
+.mission-panel.success { border-color: var(--color-success); box-shadow: 0 0 40px rgba(53, 224, 138, 0.18); }
+.mission-panel.success .mission-icon, .mission-panel.success h2 { color: var(--color-success); }
+.mission-panel.failed { border-color: var(--color-danger); box-shadow: 0 0 40px rgba(255, 77, 90, 0.2); }
+.mission-panel.failed .mission-icon, .mission-panel.failed h2 { color: var(--color-danger); }
+.mission-panel.briefing { text-align: left; }
+.mission-panel.briefing .actions { flex-direction: row; justify-content: flex-start; }
+.mission-stats { display: flex; justify-content: center; gap: var(--space-3); font-size: 14px; color: var(--color-muted); }
+.mission-stats b { color: var(--color-text); font-weight: 600; }
+
+/* ---- Footer ------------------------------------------------------------------ */
+.site-footer {
+    background: rgba(15, 25, 35, 0.92);
+    border-top: 1px solid #334454;
+    padding: var(--space-3) var(--space-4);
+}
+.footer-inner {
+    max-width: 976px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); flex-wrap: wrap;
+}
+.footer-line { font-size: 13px; color: #64748B; }
+.footer-line .footer-brand { font-weight: 600; letter-spacing: 0.08em; color: #CBD5E1; }
+.footer-line .dot { margin: 0 2px; }
+
+/* ---- Shared animation ---------------------------------------------------------- */
+@keyframes pulse { 50% { opacity: 0.55; } }
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-8px); } 40% { transform: translateX(8px); }
+    60% { transform: translateX(-5px); } 80% { transform: translateX(5px); }
+}
+.shake { animation: shake 0.4s ease; }
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+/* ---- Responsive: padding shrinks, hierarchy stays ----------------------------------- */
+@media (max-width: 760px) {
+    .hud { grid-template-columns: 1fr; }
+    .hud .panel { flex-direction: row; align-items: center; justify-content: space-between; }
+    .progress-track { display: none; }
+}
+@media (max-width: 600px) {
+    h1 { font-size: 32px; }
+    h2 { font-size: 24px; }
+    .container { padding: var(--space-3) var(--space-2) var(--space-4); gap: var(--space-3); }
+    .header-inner { padding: var(--space-1) var(--space-2); }
+    .panel { padding: var(--space-2); }
+    .site-footer { padding: var(--space-2); }
+    .field-row { flex-direction: column; }
+    .mission-panel { padding: var(--space-3) var(--space-2); }
+    .mission-panel.briefing .actions { flex-direction: column; }
+    .brand .brand-text { display: none; }
+}
+
+/* ---- Responsive audit (320px - 1440px+) ---- */
+.header-inner { flex-wrap: wrap; }
+.nav { flex-wrap: wrap; justify-content: flex-end; min-width: 0; }
+@media (max-width: 600px), (pointer: coarse) { .btn, .btn-small { min-height: 44px; } }

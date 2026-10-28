@@ -1,0 +1,1690 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Time Travel Mission</title>
+
+    <link rel="stylesheet"
+          th:href="@{/css/timetravel.css}">
+
+    <style>
+
+        /* =============================== */
+        /* GAME STATUS */
+        /* =============================== */
+
+        #gameStatus {
+
+            width: min(700px, 90%);
+
+            margin: 20px auto;
+
+            padding: 15px;
+
+            background: #111820;
+
+            border: 1px solid #26323D;
+
+            border-radius: 12px;
+
+            display: flex;
+
+            justify-content: space-around;
+
+            align-items: center;
+
+            font-size: 20px;
+
+            font-weight: bold;
+
+        }
+
+        #lives {
+
+            color: #ff4d6d;
+
+        }
+
+        #timer {
+
+            color: #00D9FF;
+
+        }
+
+        /* =============================== */
+        /* INPUT */
+        /* =============================== */
+
+        input {
+
+            padding: 12px;
+
+            margin: 10px;
+
+            width: 220px;
+
+            background: #0B0F14;
+
+            color: #F2F5F7;
+
+            border: 1px solid #00D9FF;
+
+            border-radius: 8px;
+
+            font-family: 'Space Grotesk', sans-serif;
+
+            font-size: 16px;
+
+            text-align: center;
+
+        }
+
+        /* =============================== */
+        /* BUTTONS */
+        /* =============================== */
+
+        .choice-button {
+
+            display: block;
+
+            width: 100%;
+
+            margin: 10px 0;
+
+        }
+
+        /* =============================== */
+        /* MESSAGES */
+        /* =============================== */
+
+        .success {
+
+            color: #00D9FF;
+
+            font-weight: bold;
+
+        }
+
+        .error {
+
+            color: #ff6b6b;
+
+            font-weight: bold;
+
+        }
+
+        /* =============================== */
+        /* GAME OVER */
+        /* =============================== */
+
+        #gameOver {
+
+            border: 2px solid #ff4d6d;
+
+        }
+
+        #gameComplete {
+
+            border: 2px solid #00D9FF;
+
+        }
+
+    </style>
+
+</head>
+
+
+<body th:data-bgm-src="@{/sounds/music/the-way-out-15s.mp3}" data-bgm-src="/sounds/music/the-way-out-15s.mp3">
+    <th:block th:replace="~{fragments/bgm :: audio}"></th:block>
+
+    <nav class="top-nav">
+        <a class="home-link" th:href="@{/timetravel}">&larr; MISSIONS</a>
+        <a class="home-link" th:href="@{/}">&#8962; HOME</a>
+        <th:block th:replace="~{fragments/bgm :: toggle}"></th:block>
+    </nav>
+
+
+    <!-- ===================================== -->
+    <!-- TITLE -->
+    <!-- ===================================== -->
+
+    <h1>TIME TRAVEL</h1>
+
+    <p>
+        Complete the mission before time runs out.
+    </p>
+
+
+    <!-- ===================================== -->
+    <!-- GAME STATUS -->
+    <!-- ===================================== -->
+
+    <div id="gameStatus">
+
+        <div id="lives">
+            ❤️ Lives: <span id="lifeCount">3</span>
+        </div>
+
+        <div id="timer">
+            ⏱️ Time: <span id="time">10:00</span>
+        </div>
+
+    </div>
+
+
+    <!-- ===================================== -->
+    <!-- TIME PERIOD SELECTION -->
+    <!-- ===================================== -->
+
+    <section>
+
+        <h2>SELECT TIME PERIOD</h2>
+
+        <p>
+
+            The timeline is unstable.
+
+            Complete the challenges in each era
+            to restore time.
+
+        </p>
+
+
+        <button onclick="selectTime('PAST')">
+
+            ⏳ PAST
+
+        </button>
+
+
+        <button onclick="selectTime('PRESENT')">
+
+            ⚡ PRESENT
+
+        </button>
+
+
+        <button onclick="selectTime('FUTURE')">
+
+            🚀 FUTURE
+
+        </button>
+
+    </section>
+
+
+    <!-- ===================================== -->
+    <!-- PAST -->
+    <!-- ===================================== -->
+
+    <section id="pastMission"
+             style="display: none;">
+
+        <h2>
+            ⏳ PAST — THE LOST INVENTION
+        </h2>
+
+        <p>
+            Year: <strong>1920</strong>
+        </p>
+
+        <p>
+            An inventor has hidden a mysterious
+            time device.
+        </p>
+
+
+        <!-- PAST PUZZLE 1 -->
+
+        <h3>
+            PUZZLE 1 — THE INVENTOR'S NOTE
+        </h3>
+
+        <p>
+            Which clue should you investigate?
+        </p>
+
+
+        <button class="choice-button"
+                onclick="pastPuzzle1('box')">
+
+            🔑 A. Open the wooden box
+
+        </button>
+
+
+        <button class="choice-button"
+                onclick="pastPuzzle1('note')">
+
+            📜 B. Read the inventor's note
+
+        </button>
+
+
+        <button class="choice-button"
+                onclick="pastPuzzle1('lab')">
+
+            🚪 C. Enter the laboratory
+
+        </button>
+
+
+        <p id="pastResult1"></p>
+
+
+        <!-- PAST PUZZLE 2 -->
+
+        <div id="pastPuzzle2"
+             style="display: none;">
+
+            <h3>
+                PUZZLE 2 — THE LABORATORY CLOCK
+            </h3>
+
+            <p>
+
+                Beneath the laboratory clock
+                you find a locked compartment.
+
+            </p>
+
+            <p>
+
+                <strong>
+                    Hint:
+                </strong>
+
+                The inventor's favorite year
+                is hidden in the room.
+
+            </p>
+
+
+            <input id="pastCode"
+                   type="text"
+                   maxlength="4"
+                   placeholder="4-digit code">
+
+
+            <br>
+
+
+            <button onclick="checkPastCode()">
+
+                ENTER CODE
+
+            </button>
+
+
+            <p id="pastResult2"></p>
+
+        </div>
+
+
+        <!-- PAST PUZZLE 3 -->
+
+        <div id="pastPuzzle3"
+             style="display: none;">
+
+            <h3>
+                PUZZLE 3 — THE LOCKED CABINET
+            </h3>
+
+            <p>
+
+                Choose the key marked
+                with the symbol of time.
+
+            </p>
+
+
+            <button class="choice-button"
+                    onclick="pastPuzzle3('sun')">
+
+                ☀️ A. Sun Key
+
+            </button>
+
+
+            <button class="choice-button"
+                    onclick="pastPuzzle3('clock')">
+
+                🕰️ B. Clock Key
+
+            </button>
+
+
+            <button class="choice-button"
+                    onclick="pastPuzzle3('star')">
+
+                ⭐ C. Star Key
+
+            </button>
+
+
+            <p id="pastResult3"></p>
+
+        </div>
+
+
+        <!-- PAST PUZZLE 4 -->
+
+        <div id="pastPuzzle4"
+             style="display: none;">
+
+            <h3>
+                PUZZLE 4 — ASSEMBLE THE INVENTION
+            </h3>
+
+            <p>
+
+                Choose the correct assembly sequence.
+
+            </p>
+
+
+            <button class="choice-button"
+                    onclick="pastPuzzle4('wrong1')">
+
+                A. Power Core → Clock → Crystal
+
+            </button>
+
+
+            <button class="choice-button"
+                    onclick="pastPuzzle4('correct')">
+
+                B. Crystal → Clock → Power Core
+
+            </button>
+
+
+            <button class="choice-button"
+                    onclick="pastPuzzle4('wrong2')">
+
+                C. Clock → Power Core → Crystal
+
+            </button>
+
+
+            <p id="pastResult4"></p>
+
+        </div>
+
+
+        <!-- PAST COMPLETE -->
+
+        <div id="pastComplete"
+             style="display: none;">
+
+            <h2>
+                ✅ PAST MISSION COMPLETE
+            </h2>
+
+            <p class="success">
+
+                You recovered the lost invention!
+
+            </p>
+
+            <p>
+
+                The time device begins to activate.
+
+                Your next destination is the PRESENT.
+
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- ===================================== -->
+    <!-- PRESENT -->
+    <!-- ===================================== -->
+
+    <section id="presentMission"
+             style="display: none;">
+
+        <h2>
+            ⚡ PRESENT — THE BROKEN TIMELINE
+        </h2>
+
+        <p>
+            Year: <strong>2026</strong>
+        </p>
+
+        <p>
+
+            You return to the present
+            and discover that history has changed.
+
+        </p>
+
+
+        <!-- PRESENT PUZZLE 1 -->
+
+        <h3>
+            PUZZLE 1 — TIMELINE SCANNER
+        </h3>
+
+        <p>
+
+            Which event does NOT belong
+            in the timeline?
+
+        </p>
+
+
+        <button class="choice-button"
+                onclick="presentPuzzle1('moon')">
+
+            🌕 A. Humans explore the Moon
+
+        </button>
+
+
+        <button class="choice-button"
+                onclick="presentPuzzle1('dinosaur')">
+
+            🦖 B. Dinosaurs send a message to humans
+
+        </button>
+
+
+        <button class="choice-button"
+                onclick="presentPuzzle1('internet')">
+
+            💻 C. The Internet connects the world
+
+        </button>
+
+
+        <p id="presentResult1"></p>
+
+
+        <!-- PRESENT PUZZLE 2 -->
+
+        <div id="presentPuzzle2"
+             style="display: none;">
+
+            <h3>
+                PUZZLE 2 — THE NEWSPAPER
+            </h3>
+
+            <p>
+
+                Which date represents
+                the present?
+
+            </p>
+
+
+            <button onclick="presentPuzzle2Answer('1920')">
+
+                1920
+
+            </button>
+
+
+            <button onclick="presentPuzzle2Answer('2026')">
+
+                2026
+
+            </button>
+
+
+            <button onclick="presentPuzzle2Answer('2099')">
+
+                2099
+
+            </button>
+
+
+            <p id="presentResult2"></p>
+
+        </div>
+
+
+        <!-- PRESENT PUZZLE 3 -->
+
+        <div id="presentPuzzle3"
+             style="display: none;">
+
+            <h3>
+                PUZZLE 3 — DIGITAL LOCK
+            </h3>
+
+            <p>
+
+                Combine the past year
+                and present year.
+
+            </p>
+
+            <p>
+                1920 + 2026
+            </p>
+
+
+            <input id="presentCode"
+                   type="text"
+                   maxlength="8"
+                   placeholder="Enter code">
+
+
+            <br>
+
+
+            <button onclick="checkPresentCode()">
+
+                UNLOCK
+
+            </button>
+
+
+            <p id="presentResult3"></p>
+
+        </div>
+
+
+        <!-- PRESENT PUZZLE 4 -->
+
+        <div id="presentPuzzle4"
+             style="display: none;">
+
+            <h3>
+                PUZZLE 4 — REPAIR THE TIMELINE
+            </h3>
+
+
+            <button class="choice-button"
+                    onclick="presentPuzzle4('war')">
+
+                A. Remove a historical event
+
+            </button>
+
+
+            <button class="choice-button"
+                    onclick="presentPuzzle4('invention')">
+
+                B. Restore the lost invention
+
+            </button>
+
+
+            <button class="choice-button"
+                    onclick="presentPuzzle4('future')">
+
+                C. Delete the future
+
+            </button>
+
+
+            <p id="presentResult4"></p>
+
+        </div>
+
+
+        <!-- PRESENT COMPLETE -->
+
+        <div id="presentComplete"
+             style="display: none;">
+
+            <h2>
+                ✅ PRESENT MISSION COMPLETE
+            </h2>
+
+            <p class="success">
+
+                The timeline has been stabilized.
+
+            </p>
+
+            <p>
+
+                A major disturbance
+                has appeared in the FUTURE.
+
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- ===================================== -->
+    <!-- FUTURE -->
+    <!-- ===================================== -->
+
+    <section id="futureMission"
+             style="display: none;">
+
+        <h2>
+            🚀 FUTURE — THE COLLAPSING TIMELINE
+        </h2>
+
+        <p>
+            Year: <strong>2099</strong>
+        </p>
+
+        <p>
+
+            The future is collapsing.
+
+            Repair the final timeline.
+
+        </p>
+
+
+        <!-- FUTURE PUZZLE 1 -->
+
+        <h3>
+            PUZZLE 1 — AI WARNING
+        </h3>
+
+        <p>
+
+            "ONLY ONE PATH SAVES TIME."
+
+        </p>
+
+
+        <button class="choice-button"
+                onclick="futurePuzzle1('past')">
+
+            ⏳ Return to the Past
+
+        </button>
+
+
+        <button class="choice-button"
+                onclick="futurePuzzle1('present')">
+
+            ⚡ Repair the Present
+
+        </button>
+
+
+        <button class="choice-button"
+                onclick="futurePuzzle1('destroy')">
+
+            💥 Destroy the Time Machine
+
+        </button>
+
+
+        <p id="futureResult1"></p>
+
+
+        <!-- FUTURE PUZZLE 2 -->
+
+        <div id="futurePuzzle2"
+             style="display: none;">
+
+            <h3>
+                PUZZLE 2 — ENERGY CORE
+            </h3>
+
+            <p>
+                Choose the correct energy sequence.
+            </p>
+
+
+            <button class="choice-button"
+                    onclick="futurePuzzle2Answer('123')">
+
+                🔵 1 → 2 → 3
+
+            </button>
+
+
+            <button class="choice-button"
+                    onclick="futurePuzzle2Answer('321')">
+
+                🔴 3 → 2 → 1
+
+            </button>
+
+
+            <button class="choice-button"
+                    onclick="futurePuzzle2Answer('213')">
+
+                🟢 2 → 1 → 3
+
+            </button>
+
+
+            <p id="futureResult2"></p>
+
+        </div>
+
+
+        <!-- FUTURE PUZZLE 3 -->
+
+        <div id="futurePuzzle3"
+             style="display: none;">
+
+            <h3>
+                PUZZLE 3 — ROBOT SECURITY
+            </h3>
+
+            <p>
+
+                What year comes after 2099?
+
+            </p>
+
+
+            <input id="futureCode"
+                   type="text"
+                   maxlength="4"
+                   placeholder="Enter year">
+
+
+            <br>
+
+
+            <button onclick="checkFutureCode()">
+
+                VERIFY
+
+            </button>
+
+
+            <p id="futureResult3"></p>
+
+        </div>
+
+
+        <!-- FUTURE PUZZLE 4 -->
+
+        <div id="futurePuzzle4"
+             style="display: none;">
+
+            <h3>
+                PUZZLE 4 — CHOOSE THE FUTURE
+            </h3>
+
+            <p>
+
+                Which future should be saved?
+
+            </p>
+
+
+            <button class="choice-button"
+                    onclick="futurePuzzle4('collapse')">
+
+                💀 A. The timeline collapses
+
+            </button>
+
+
+            <button class="choice-button"
+                    onclick="futurePuzzle4('peace')">
+
+                🌍 B. Humanity survives
+                and the timeline is stable
+
+            </button>
+
+
+            <button class="choice-button"
+                    onclick="futurePuzzle4('loop')">
+
+                🔄 C. Time remains trapped
+                in a loop
+
+            </button>
+
+
+            <p id="futureResult4"></p>
+
+        </div>
+
+
+        <!-- FINAL PUZZLE -->
+
+        <div id="finalPuzzle"
+             style="display: none;">
+
+            <h2>
+                ⏰ FINAL TIME TRAVEL DECISION
+            </h2>
+
+            <p>
+
+                The time machine is ready.
+
+                What will you do?
+
+            </p>
+
+
+            <button class="choice-button"
+                    onclick="finalChoice('return')">
+
+                🏠 A. Return to your own time
+
+            </button>
+
+
+            <button class="choice-button"
+                    onclick="finalChoice('stay')">
+
+                🚀 B. Stay in the future
+
+            </button>
+
+
+            <button class="choice-button"
+                    onclick="finalChoice('reset')">
+
+                🔄 C. Reset the entire timeline
+
+            </button>
+
+
+            <p id="finalResult"></p>
+
+        </div>
+
+
+        <!-- GAME COMPLETE -->
+
+        <div id="gameComplete"
+             style="display: none;">
+
+            <h1>
+                🎉 TIME TRAVEL COMPLETE
+            </h1>
+
+            <h2>
+                MISSION SUCCESS
+            </h2>
+
+            <p>
+
+                You recovered the lost invention,
+                repaired the present,
+                and saved the future.
+
+            </p>
+
+            <p class="success">
+
+                THE TIMELINE IS STABLE.
+
+            </p>
+
+            <p>
+
+                Welcome home, Time Traveler.
+
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- ===================================== -->
+    <!-- GAME OVER -->
+    <!-- ===================================== -->
+
+    <section id="gameOver"
+             style="display: none;">
+
+        <h1>
+            💀 GAME OVER
+        </h1>
+
+        <h2>
+            THE TIMELINE HAS COLLAPSED
+        </h2>
+
+        <p id="gameOverMessage">
+
+            You failed to stabilize the timeline.
+
+        </p>
+
+
+        <button onclick="restartGame()">
+
+            🔄 RESTART MISSION
+
+        </button>
+
+    </section>
+
+
+    <!-- ===================================== -->
+    <!-- JAVASCRIPT -->
+    <!-- ===================================== -->
+
+    <script>
+            // ===============================
+    // GAME SOUNDS
+    // ===============================
+
+    const clickSound = new Audio('/sounds/common/click.mp3');
+    const correctSound = new Audio('/sounds/common/correct.mp3');
+    const wrongSound = new Audio('/sounds/common/wrong.mp3');
+    const successSound = new Audio('/sounds/common/success.mp3');
+    const failureSound = new Audio('/sounds/common/failure.mp3');
+
+    function playSound(sound) {
+        if (window.BGM && window.BGM.sfxAllowed) {          // levels + SOUND toggle live in bgm.js
+            if (!window.BGM.sfxAllowed()) return;
+            sound.volume = window.BGM.sfxVolume;
+        }
+        sound.currentTime = 0;
+        const p = sound.play();
+        if (p && p.catch) p.catch(function () { /* autoplay blocked: ignore */ });
+    }
+
+    // Play click sound whenever a button is clicked
+    document.addEventListener("click", function(event) {
+        if (event.target.tagName === "BUTTON") {
+            playSound(clickSound);
+        }
+    });
+
+
+        /* ===================================== */
+        /* GAME VARIABLES */
+        /* ===================================== */
+
+        let lives = 3;
+
+        let totalSeconds = 10 * 60;
+
+        let gameRunning = true;
+
+        let timer;
+
+
+        /* ===================================== */
+        /* START TIMER */
+        /* ===================================== */
+
+        timer = setInterval(function () {
+
+            if (!gameRunning) {
+                return;
+            }
+
+            totalSeconds--;
+
+            updateTimer();
+
+            if (totalSeconds <= 0) {
+
+                gameOver(
+                    "⏰ TIME'S UP! The timeline collapsed."
+                );
+
+            }
+
+        }, 1000);
+
+
+        /* ===================================== */
+        /* UPDATE TIMER */
+        /* ===================================== */
+
+        function updateTimer() {
+
+            let minutes =
+                Math.floor(totalSeconds / 60);
+
+            let seconds =
+                totalSeconds % 60;
+
+
+            let formattedSeconds =
+                seconds < 10
+                    ? "0" + seconds
+                    : seconds;
+
+
+            document.getElementById("time").innerText =
+                minutes + ":" + formattedSeconds;
+
+
+            if (totalSeconds <= 60) {
+
+                document.getElementById("timer").style.color =
+                    "#ff4d6d";
+
+            }
+
+        }
+
+
+        /* ===================================== */
+        /* LOSE LIFE */
+        /* ===================================== */
+
+        function loseLife() {
+
+            if (!gameRunning) {
+                return;
+            }
+
+            lives--;
+
+            document.getElementById("lifeCount").innerText =
+                lives;
+
+
+            if (lives <= 0) {
+
+                gameOver(
+                    "💔 You ran out of lives."
+                );
+
+            }
+
+        }
+
+
+        /* ===================================== */
+        /* GAME OVER */
+        /* ===================================== */
+
+        function gameOver(message) {
+
+            gameRunning = false;
+
+            clearInterval(timer);
+
+
+            document.getElementById("pastMission").style.display =
+                "none";
+
+            document.getElementById("presentMission").style.display =
+                "none";
+
+            document.getElementById("futureMission").style.display =
+                "none";
+
+
+            document.getElementById("gameOver").style.display =
+                "block";
+
+
+            document.getElementById("gameOverMessage").innerText =
+                message;
+
+        }
+
+
+        /* ===================================== */
+        /* TIME SELECTION */
+        /* ===================================== */
+
+        function selectTime(period) {
+
+            if (!gameRunning) {
+                return;
+            }
+
+
+            document.getElementById("pastMission").style.display =
+                "none";
+
+            document.getElementById("presentMission").style.display =
+                "none";
+
+            document.getElementById("futureMission").style.display =
+                "none";
+
+
+            if (period === "PAST") {
+
+                document.getElementById("pastMission").style.display =
+                    "block";
+
+            }
+
+
+            if (period === "PRESENT") {
+
+                document.getElementById("presentMission").style.display =
+                    "block";
+
+            }
+
+
+            if (period === "FUTURE") {
+
+                document.getElementById("futureMission").style.display =
+                    "block";
+
+            }
+
+        }
+
+
+        /* ===================================== */
+        /* PAST PUZZLE 1 */
+        /* ===================================== */
+
+        function pastPuzzle1(choice) {
+
+            if (!gameRunning) {
+                return;
+            }
+
+
+            const result =
+                document.getElementById("pastResult1");
+
+
+            if (choice === "note") {
+
+                result.innerText =
+                    "✅ Correct! The note says: 'Look beneath the laboratory clock.'";
+
+
+                document.getElementById("pastPuzzle2").style.display =
+                    "block";
+
+            } else {
+
+                result.innerText =
+                    "❌ Wrong choice. You lost 1 life.";
+
+
+                loseLife();
+
+            }
+
+        }
+
+
+        /* ===================================== */
+        /* PAST PUZZLE 2 */
+        /* ===================================== */
+
+        function checkPastCode() {
+
+            if (!gameRunning) {
+                return;
+            }
+
+
+            const code =
+                document.getElementById("pastCode").value;
+
+
+            const result =
+                document.getElementById("pastResult2");
+
+
+            if (code === "1920") {
+
+                result.innerText =
+                    "🎉 Correct! The compartment opens.";
+
+
+                document.getElementById("pastPuzzle3").style.display =
+                    "block";
+
+            } else {
+
+                result.innerText =
+                    "❌ Incorrect code. You lost 1 life.";
+
+                loseLife();
+
+            }
+
+        }
+
+
+        /* ===================================== */
+        /* PAST PUZZLE 3 */
+        /* ===================================== */
+
+        function pastPuzzle3(choice) {
+
+            if (!gameRunning) {
+                return;
+            }
+
+
+            const result =
+                document.getElementById("pastResult3");
+
+
+            if (choice === "clock") {
+
+                result.innerText =
+                    "✅ Correct! The clock key opens the cabinet.";
+
+
+                document.getElementById("pastPuzzle4").style.display =
+                    "block";
+
+            } else {
+
+                result.innerText =
+                    "❌ That key does not fit. You lost 1 life.";
+
+                loseLife();
+
+            }
+
+        }
+
+
+        /* ===================================== */
+        /* PAST PUZZLE 4 */
+        /* ===================================== */
+
+        function pastPuzzle4(choice) {
+
+            if (!gameRunning) {
+                return;
+            }
+
+
+            const result =
+                document.getElementById("pastResult4");
+
+
+            if (choice === "correct") {
+
+                result.innerText =
+                    "🎉 Perfect! The time machine activates.";
+
+
+                document.getElementById("pastComplete").style.display =
+                    "block";
+
+            } else {
+
+                result.innerText =
+                    "❌ Incorrect assembly. You lost 1 life.";
+
+                loseLife();
+
+            }
+
+        }
+
+
+        /* ===================================== */
+        /* PRESENT PUZZLE 1 */
+        /* ===================================== */
+
+        function presentPuzzle1(choice) {
+
+            if (!gameRunning) {
+                return;
+            }
+
+
+            const result =
+                document.getElementById("presentResult1");
+
+
+            if (choice === "dinosaur") {
+
+                result.innerText =
+                    "✅ Correct! Dinosaurs sending messages is the broken event.";
+
+
+                document.getElementById("presentPuzzle2").style.display =
+                    "block";
+
+            } else {
+
+                result.innerText =
+                    "❌ Incorrect. You lost 1 life.";
+
+                loseLife();
+
+            }
+
+        }
+
+
+        /* ===================================== */
+        /* PRESENT PUZZLE 2 */
+        /* ===================================== */
+
+        function presentPuzzle2Answer(answer) {
+
+            if (!gameRunning) {
+                return;
+            }
+
+
+            const result =
+                document.getElementById("presentResult2");
+
+
+            if (answer === "2026") {
+
+                result.innerText =
+                    "✅ Correct! 2026 is the present.";
+
+
+                document.getElementById("presentPuzzle3").style.display =
+                    "block";
+
+            } else {
+
+                result.innerText =
+                    "❌ Incorrect date. You lost 1 life.";
+
+                loseLife();
+
+            }
+
+        }
+
+
+        /* ===================================== */
+        /* PRESENT PUZZLE 3 */
+        /* ===================================== */
+
+        function checkPresentCode() {
+
+            if (!gameRunning) {
+                return;
+            }
+
+
+            const code =
+                document.getElementById("presentCode").value;
+
+
+            const result =
+                document.getElementById("presentResult3");
+
+
+            if (code === "19202026") {
+
+                result.innerText =
+                    "🔓 Correct! The digital lock opens.";
+
+
+                document.getElementById("presentPuzzle4").style.display =
+                    "block";
+
+            } else {
+
+                result.innerText =
+                    "❌ Incorrect code. You lost 1 life.";
+
+                loseLife();
+
+            }
+
+        }
+
+
+        /* ===================================== */
+        /* PRESENT PUZZLE 4 */
+        /* ===================================== */
+
+        function presentPuzzle4(choice) {
+
+            if (!gameRunning) {
+                return;
+            }
+
+
+            const result =
+                document.getElementById("presentResult4");
+
+
+            if (choice === "invention") {
+
+                result.innerText =
+                    "🎉 Correct! The lost invention has been restored.";
+
+
+                document.getElementById("presentComplete").style.display =
+                    "block";
+
+            } else {
+
+                result.innerText =
+                    "❌ Wrong choice. You lost 1 life.";
+
+                loseLife();
+
+            }
+
+        }
+
+
+        /* ===================================== */
+        /* FUTURE PUZZLE 1 */
+        /* ===================================== */
+
+        function futurePuzzle1(choice) {
+
+            if (!gameRunning) {
+                return;
+            }
+
+
+            const result =
+                document.getElementById("futureResult1");
+
+
+            if (choice === "present") {
+
+                result.innerText =
+                    "✅ Correct! Repairing the present protects the future.";
+
+
+                document.getElementById("futurePuzzle2").style.display =
+                    "block";
+
+            } else {
+
+                result.innerText =
+                    "❌ The AI rejects this path. You lost 1 life.";
+
+                loseLife();
+
+            }
+
+        }
+
+
+        /* ===================================== */
+        /* FUTURE PUZZLE 2 */
+        /* ===================================== */
+
+        function futurePuzzle2Answer(answer) {
+
+            if (!gameRunning) {
+                return;
+            }
+
+
+            const result =
+                document.getElementById("futureResult2");
+
+
+            if (answer === "123") {
+
+                result.innerText =
+                    "⚡ Correct! The energy core is charged.";
+
+
+                document.getElementById("futurePuzzle3").style.display =
+                    "block";
+
+            } else {
+
+                result.innerText =
+                    "❌ Wrong energy sequence. You lost 1 life.";
+
+                loseLife();
+
+            }
+
+        }
+
+
+        /* ===================================== */
+        /* FUTURE PUZZLE 3 */
+        /* ===================================== */
+
+        function checkFutureCode() {
+
+            if (!gameRunning) {
+                return;
+            }
+
+
+            const code =
+                document.getElementById("futureCode").value;
+
+
+            const result =
+                document.getElementById("futureResult3");
+
+
+            if (code === "2100") {
+
+                result.innerText =
+                    "🤖 Correct! Robot security disabled.";
+
+
+                document.getElementById("futurePuzzle4").style.display =
+                    "block";
+
+            } else {
+
+                result.innerText =
+                    "❌ Incorrect year. You lost 1 life.";
+
+                loseLife();
+
+            }
+
+        }
+
+
+        /* ===================================== */
+        /* FUTURE PUZZLE 4 */
+        /* ===================================== */
+
+        function futurePuzzle4(choice) {
+
+            if (!gameRunning) {
+                return;
+            }
+
+
+            const result =
+                document.getElementById("futureResult4");
+
+
+            if (choice === "peace") {
+
+                result.innerText =
+                    "🌍 Correct! The stable future has been selected.";
+
+
+                document.getElementById("finalPuzzle").style.display =
+                    "block";
+
+            } else {
+
+                result.innerText =
+                    "❌ That future cannot be saved. You lost 1 life.";
+
+                loseLife();
+
+            }
+
+        }
+
+
+        /* ===================================== */
+        /* FINAL DECISION */
+        /* ===================================== */
+
+        function finalChoice(choice) {
+
+            if (!gameRunning) {
+                return;
+            }
+
+
+            const result =
+                document.getElementById("finalResult");
+
+
+            if (choice === "return") {
+
+                result.innerText =
+                    "🚀 You return safely to your own time.";
+
+            }
+
+
+            if (choice === "stay") {
+
+                result.innerText =
+                    "🌌 You become the guardian of the future.";
+
+            }
+
+
+            if (choice === "reset") {
+
+                result.innerText =
+                    "🔄 The timeline resets and becomes stable.";
+
+            }
+
+
+            gameRunning = false;
+
+            clearInterval(timer);
+
+
+            document.getElementById("gameComplete").style.display =
+                "block";
+
+        }
+
+
+        /* ===================================== */
+        /* RESTART */
+        /* ===================================== */
+
+        function restartGame() {
+
+            location.reload();
+
+        }
+
+    </script>
+
+
+    <script th:src="@{/js/bgm.js}"></script>
+</body>
+
+</html>

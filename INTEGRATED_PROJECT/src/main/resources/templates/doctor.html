@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Doctor Escape</title>
+
+    <link rel="stylesheet" href="/css/pandemic-base.css">
+    <link rel="stylesheet" href="/css/pandemic.css">
+
+</head>
+
+<body th:data-bgm-src="@{/sounds/music/puzzle-mystery.mp3}" data-bgm-src="/sounds/music/puzzle-mystery.mp3" class="pandemic-page">
+    <th:block th:replace="~{fragments/bgm :: audio}"></th:block>
+
+<header class="site-header">
+
+    <div class="logo">
+        ◈ DIGITAL <span>ESCAPE ROOM</span>
+    </div>
+
+    <div class="nav-actions">
+
+        <div id="timer" class="timer">
+            10:00
+        </div>
+        <div id="lives" class="lives-display">
+    ❤️ ❤️ ❤️
+    <br>
+    LIVES: 3
+</div>
+
+      <button class="nav-button sound-button" type="button" data-bgm-toggle aria-pressed="true">
+    🔊 SOUND ON
+</button>
+
+        <button class="nav-button"
+                onclick="goToMainMenu()">
+            ⌂ MAIN MENU
+        </button>
+
+    </div>
+
+</header>
+
+
+<div class="system-status">
+    MEDICAL QUARANTINE ACTIVE
+</div>
+
+
+<main class="main-container">
+
+    <div class="role-header">
+
+        <div>
+
+            <h1 class="role-title">
+                DOCTOR <span>MISSION</span>
+            </h1>
+
+            <p class="role-description">
+                Decode the medical records and restore the emergency system.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="hint-card">
+
+        <h3>OBJECTIVE</h3>
+
+        <p>
+            Investigate the medical facility, decode the patient records
+            and unlock the emergency exit.
+        </p>
+
+    </div>
+
+
+    <div id="doctorBanner" class="doctor-banner" role="alert" hidden></div>
+
+    <section class="outbreak-panel" aria-label="Outbreak status">
+
+        <div class="meter">
+            <div class="meter-head">
+                <span class="meter-label">INFECTION RATE</span>
+                <span class="meter-value" id="infectionValue">--</span>
+            </div>
+            <div class="meter-track" role="progressbar" aria-label="Infection rate" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                <div class="meter-fill meter-infection" id="infectionBar"></div>
+            </div>
+        </div>
+
+        <div class="meter">
+            <div class="meter-head">
+                <span class="meter-label">RECOVERY RATE</span>
+                <span class="meter-value" id="recoveryValue">--</span>
+            </div>
+            <div class="meter-track" role="progressbar" aria-label="Recovery rate" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                <div class="meter-fill meter-recovery" id="recoveryBar"></div>
+            </div>
+        </div>
+
+        <div class="meter meter-count">
+            <div class="meter-head">
+                <span class="meter-label">ROOMS CLEARED</span>
+                <span class="meter-value" id="roomsCleared">-- / --</span>
+            </div>
+        </div>
+
+    </section>
+
+
+    <div class="door-grid">
+
+        <div class="door-card" data-case="medical">
+
+            <div class="door-icon">🏥</div>
+
+            <h3>MEDICAL LAB</h3>
+
+            <p>
+                Examine the medical evidence.
+            </p>
+
+            <button class="secondary-button">
+                INVESTIGATE
+            </button>
+
+        </div>
+
+
+        <div class="door-card" data-case="research">
+
+            <div class="door-icon">📋</div>
+
+            <h3>RESEARCH ROOM</h3>
+
+            <p>
+                Decode the encrypted medical records.
+            </p>
+
+            <button class="secondary-button">
+                INVESTIGATE
+            </button>
+
+        </div>
+
+
+        <div class="door-card" data-case="emergency">
+
+            <div class="door-icon">🚨</div>
+
+            <h3>EMERGENCY EXIT</h3>
+
+            <p>
+                Restore the emergency system.
+            </p>
+
+            <button class="secondary-button">
+                INVESTIGATE
+            </button>
+
+        </div>
+
+    </div>
+
+    <div id="missionResult" class="mission-result"></div>
+
+</main>
+
+
+<script src="/js/pandemic-sound.js"></script>
+<script src="/js/pandemic.js"></script>
+<script src="/js/doctor.js"></script>
+
+    <script th:src="@{/js/bgm.js}"></script>
+</body>
+</html>

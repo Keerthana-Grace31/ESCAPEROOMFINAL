@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zombie Mission - Digital Escape Room</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230B0F14'/%3E%3Cpath d='M16 4l10 12-10 12L6 16z' fill='none' stroke='%2300D9FF' stroke-width='2.5'/%3E%3C/svg%3E">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/zombie-base.css" th:href="@{/css/zombie-base.css}">
+    <link rel="stylesheet" href="/css/zombie.css" th:href="@{/css/zombie.css}">
+</head>
+<body th:data-bgm-src="@{/sounds/music/puzzle-mystery.mp3}" data-bgm-src="/sounds/music/puzzle-mystery.mp3" class="scene scene-hub" data-ambient="/sounds/zombie/hub-ambient.mp3"
+      th:attr="data-ambient=${ambientSound}">
+    <th:block th:replace="~{fragments/bgm :: audio}"></th:block>
+
+<div class="fog fog-1" aria-hidden="true"></div>
+<div class="fog fog-2" aria-hidden="true"></div>
+
+<div class="page">
+    <div th:replace="~{fragments/zombie :: header}"></div>
+
+    <main class="container">
+
+        <!-- Hero -->
+        <section class="panel hero">
+            <p class="eyebrow">&#9672; ZOMBIE MISSION</p>
+            <h1>Escape the <span class="accent">Outbreak</span></h1>
+            <p>Two places have fallen. Pick one, solve the puzzles in order and get out alive before the clock runs out.</p>
+        </section>
+
+        <!-- Choose scenario -->
+        <section aria-labelledby="choose-title">
+            <h2 class="section-title" id="choose-title">Choose your scenario</h2>
+            <div class="cards">
+                <a class="scenario-card" href="/zombie/school" id="card-school">
+                    <div class="thumb school" role="img" aria-label="A dark school building at night with a clock tower and a bus"></div>
+                    <div class="body">
+                        <span class="place">SCENARIO 1</span>
+                        <h2>Zombie School</h2>
+                        <p>The bell is still ringing. Get through the classroom, the library and the parking lot to reach the bus.</p>
+                        <div class="meta">
+                            <span class="pill">3 puzzles</span>
+                            <span class="pill" id="pill-school">Not started</span>
+                        </div>
+                        <span class="btn">START ZOMBIE SCHOOL</span>
+                    </div>
+                </a>
+                <a class="scenario-card" href="/zombie/hospital" id="card-hospital">
+                    <div class="thumb hospital" role="img" aria-label="A ruined hospital with a flickering green cross and an ambulance"></div>
+                    <div class="body">
+                        <span class="place">SCENARIO 2</span>
+                        <h2>Zombie Hospital</h2>
+                        <p>The wards are overrun. Reach the lab, secure the vaccine and restore power to the extraction gate.</p>
+                        <div class="meta">
+                            <span class="pill">3 puzzles</span>
+                            <span class="pill" id="pill-hospital">Not started</span>
+                        </div>
+                        <span class="btn">START ZOMBIE HOSPITAL</span>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- How to play -->
+        <section class="panel" aria-labelledby="how-title">
+            <h2 id="how-title">How to play</h2>
+            <div class="rules">
+                <div class="rule"><span class="icon">&#9201;</span><h3>Beat the clock</h3>
+                    <p>Each scenario has a <b th:text="${timeLimitSeconds / 60}">5</b>-minute countdown. At zero, the mission fails.</p></div>
+                <div class="rule"><span class="icon" id="rule-hearts" aria-hidden="true">&#10084;&#65039;&#10084;&#65039;&#10084;&#65039;</span><h3>Protect your lives</h3>
+                    <p>You start with <b th:text="${maxLives}">3</b> lives. Every wrong answer costs one.</p></div>
+                <div class="rule"><span class="icon">&#128161;</span><h3>Hints cost time</h3>
+                    <p>Stuck? A hint helps, but it takes seconds off the clock.</p></div>
+                <div class="rule"><span class="icon">&#127942;</span><h3>Solve everything</h3>
+                    <p>Answer every puzzle in a scenario to escape. Puzzles unlock one at a time.</p></div>
+            </div>
+        </section>
+
+        <!-- Overall stats (GET /zombie/api/stats) -->
+        <section class="panel" aria-labelledby="stats-title">
+            <h2 id="stats-title">Your stats</h2>
+            <div class="stats">
+                <div class="stat"><b id="st-started">0</b><span>Missions started</span></div>
+                <div class="stat good"><b id="st-wins">0</b><span>Victories</span></div>
+                <div class="stat bad"><b id="st-fails">0</b><span>Failures</span></div>
+                <div class="stat good"><b id="st-correct">0</b><span>Correct answers</span></div>
+                <div class="stat bad"><b id="st-wrong">0</b><span>Wrong answers</span></div>
+            </div>
+            <p class="best" id="best-times">No victories yet.</p>
+        </section>
+    </main>
+
+    <div th:replace="~{fragments/zombie :: footer(false)}"></div>
+</div>
+
+<script src="/js/zombie-audio.js" th:src="@{/js/zombie-audio.js}"></script>
+<script>
+(function () {
+    'use strict';
+
+    function $(id) { return document.getElementById(id); }
+
+    function fmt(totalSeconds) {
+        var m = Math.floor(totalSeconds / 60), s = totalSeconds % 60;
+        return m + ':' + (s < 10 ? '0' : '') + s;
+    }
+
+    var LABELS  = { NOT_STARTED: 'Not started', ACTIVE: 'In progress', FAILED: 'Failed', VICTORY: 'Completed' };
+    var CLASSES = { NOT_STARTED: '', ACTIVE: 'active', FAILED: 'failed', VICTORY: 'victory' };
+    var NAMES   = { school: 'Zombie School', hospital: 'Zombie Hospital' };
+
+    function setPill(slug, status) {
+        var pill = $('pill-' + slug);
+        if (!pill) return;
+        pill.textContent = LABELS[status] || 'Not started';
+        pill.className = 'pill ' + (CLASSES[status] || '');
+    }
+
+    function loadStats() {
+        fetch('/zombie/api/stats', { credentials: 'same-origin' })
+            .then(function (res) { return res.json(); })
+            .then(function (s) {
+                $('st-started').textContent = s.missionsStarted;
+                $('st-wins').textContent = s.victories;
+                $('st-fails').textContent = s.failures;
+                $('st-correct').textContent = s.correctAnswers;
+                $('st-wrong').textContent = s.wrongAnswers;
+
+                var statuses = s.scenarioStatus || {};
+                Object.keys(statuses).forEach(function (slug) { setPill(slug, statuses[slug]); });
+
+                var best = s.bestTimesSeconds || {};
+                var parts = Object.keys(best).map(function (slug) { return (NAMES[slug] || slug) + ': ' + fmt(best[slug]); });
+                $('best-times').textContent = parts.length ? 'Best times: ' + parts.join('  •  ') : 'No victories yet.';
+            })
+            .catch(function () { /* the hub still works without stats */ });
+    }
+
+    loadStats();
+    // Coming back with the browser Back button should show fresh stats.
+    window.addEventListener('pageshow', function (e) { if (e.persisted) loadStats(); });
+})();
+</script>
+    <script th:src="@{/js/bgm.js}"></script>
+</body>
+</html>

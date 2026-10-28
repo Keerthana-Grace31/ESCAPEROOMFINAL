@@ -1,0 +1,396 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+:root {
+    --bg: #070d1d;
+    --panel: rgba(17, 24, 32, 0.85);
+
+    --text: #F2F5F7;
+    --muted: #9AA6B2;
+
+    --accent: #00D9FF;
+    --border: #26323D;
+
+    --success: #35E08A;
+    --warning: #FFB547;
+    --danger: #FF4D5A;
+
+    --radius-card: 12px;
+    --radius-button: 8px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    min-height: 100%;
+}
+
+body {
+    font-family: "Space Grotesk", sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.6;
+}
+
+/* Background grid */
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+
+    background-image:
+        linear-gradient(
+            rgba(0, 217, 255, 0.025) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(0, 217, 255, 0.025) 1px,
+            transparent 1px
+        );
+
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* Header */
+
+.site-header {
+    min-height: 78px;
+    flex-wrap: wrap;
+    gap: 10px 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 8px 40px;
+
+    background: rgba(7, 13, 29, 0.92);
+
+    border-bottom: 1px solid var(--border);
+
+    box-shadow:
+        0 0 20px rgba(0, 217, 255, 0.08);
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.logo span {
+    color: var(--accent);
+}
+
+.nav-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+/* Common buttons */
+
+button {
+    font-family: "Space Grotesk", sans-serif;
+    cursor: pointer;
+}
+
+.nav-button,
+.secondary-button {
+    padding: 10px 20px;
+
+    color: var(--accent);
+
+    background: rgba(17, 24, 32, 0.85);
+
+    border: 1px solid var(--accent);
+    border-radius: var(--radius-button);
+
+    font-size: 14px;
+
+    transition: 0.25s ease;
+}
+
+.nav-button:hover,
+.secondary-button:hover {
+    background: rgba(0, 217, 255, 0.10);
+
+    box-shadow:
+        0 0 18px rgba(0, 217, 255, 0.35);
+
+    transform: translateY(-2px);
+}
+
+.primary-button {
+    padding: 13px 28px;
+
+    color: white;
+
+    border: none;
+    border-radius: var(--radius-button);
+
+    background:
+        linear-gradient(
+            90deg,
+            #087EF5,
+            #7837E8
+        );
+
+    font-size: 15px;
+    font-weight: 600;
+
+    transition: 0.25s ease;
+}
+
+.primary-button:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 0 25px rgba(0, 217, 255, 0.35);
+}
+
+/* Main */
+
+.main-container {
+    width: min(1200px, 92%);
+    margin: auto;
+    padding: 50px 0 70px;
+}
+
+/* Headings */
+
+.page-title {
+    text-align: center;
+
+    font-size: clamp(36px, 5vw, 52px);
+
+    font-weight: 700;
+
+    letter-spacing: 2px;
+}
+
+.page-title span {
+    color: var(--accent);
+}
+
+.section-title {
+    text-align: center;
+
+    font-size: 30px;
+
+    font-weight: 600;
+
+    margin-bottom: 35px;
+}
+
+.section-title span {
+    color: var(--accent);
+}
+
+/* Cards */
+
+.common-card {
+    background: var(--panel);
+
+    border: 1px solid var(--border);
+
+    border-radius: var(--radius-card);
+
+    padding: 24px;
+
+    box-shadow:
+        0 8px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Timer */
+
+.timer {
+    display: inline-block;
+
+    min-width: 120px;
+
+    padding: 8px 18px;
+
+    text-align: center;
+
+    color: var(--text);
+
+    background: rgba(17, 24, 32, 0.9);
+
+    border: 1px solid var(--accent);
+
+    border-radius: 8px;
+
+    font-size: 24px;
+    font-weight: 700;
+
+    letter-spacing: 2px;
+}
+
+.timer.warning {
+    color: var(--warning);
+    border-color: var(--warning);
+}
+
+.timer.critical {
+    color: var(--danger);
+    border-color: var(--danger);
+}
+
+/* Inputs */
+
+input,
+textarea,
+select {
+    width: 100%;
+
+    padding: 10px 14px;
+
+    color: var(--text);
+
+    background: rgba(11, 15, 20, 0.8);
+
+    border: 1px solid var(--border);
+
+    border-radius: 8px;
+
+    font-family: "Space Grotesk", sans-serif;
+
+    outline: none;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    border-color: var(--accent);
+
+    box-shadow:
+        0 0 10px rgba(0, 217, 255, 0.15);
+}
+
+/* Feedback */
+
+.feedback {
+    padding: 12px 16px;
+    margin-top: 16px;
+
+    border-radius: 8px;
+}
+
+.feedback.correct {
+    color: var(--success);
+    border: 1px solid var(--success);
+    background: rgba(53, 224, 138, 0.08);
+}
+
+.feedback.wrong {
+    color: var(--danger);
+    border: 1px solid var(--danger);
+    background: rgba(255, 77, 90, 0.08);
+}
+
+/* Hint */
+
+.hint-card {
+    margin-top: 24px;
+
+    padding: 20px;
+
+    background: var(--panel);
+
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+
+    border-radius: 12px;
+}
+
+.hint-card h3 {
+    color: var(--accent);
+    margin-bottom: 8px;
+}
+
+/* Mission result */
+
+.mission-result {
+    position: fixed;
+    inset: 0;
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    background: rgba(0, 0, 0, 0.78);
+
+    z-index: 1000;
+}
+
+.mission-result.active {
+    display: flex;
+}
+
+.result-box {
+    width: min(550px, 90%);
+
+    padding: 35px;
+
+    text-align: center;
+
+    background: rgba(17, 24, 32, 0.96);
+
+    border: 1px solid var(--border);
+
+    border-radius: 12px;
+}
+
+.result-box h1 {
+    margin-bottom: 15px;
+    font-size: 38px;
+}
+
+.result-success h1 {
+    color: var(--success);
+}
+
+.result-failure h1 {
+    color: var(--danger);
+}
+
+/* Responsive */
+
+@media (max-width: 800px) {
+
+    .site-header {
+        height: auto;
+        padding: 18px 20px;
+
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .main-container {
+        width: 94%;
+    }
+}
+
+@media (max-width: 500px) {
+
+    .page-title {
+        font-size: 34px;
+    }
+
+    .nav-actions {
+        width: 100%;
+        justify-content: center;
+    }
+}

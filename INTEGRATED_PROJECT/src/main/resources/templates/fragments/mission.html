@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<body>
+
+<!-- Shared gameplay UI for both spacecraft missions. Content comes from the Java API. -->
+<main th:fragment="mission(slug, name, tagline, story, win, lose)"
+      id="mission" class="container"
+      th:data-api="@{/api/spacecraft/{s}(s=${slug})}"
+      th:data-win-text="${win}" th:data-lose-text="${lose}">
+
+  <div class="mission-wrap">
+
+    <div class="mission-title-block fade-up">
+      <p class="eyebrow" th:text="${tagline}">Mission</p>
+      <h1 class="title-main"><span th:text="${name}">Mars</span> Mission</h1>
+    </div>
+
+    <div id="error-box" class="feedback is-wrong hidden" role="alert" style="margin-bottom: var(--space-2)"></div>
+
+    <!-- 1. Briefing -->
+    <section id="screen-briefing" class="card fade-up stack-3" aria-labelledby="brief-heading">
+      <div class="stack-1">
+        <p class="eyebrow">Mission Briefing</p>
+        <h2 class="title-section" id="brief-heading">Your objective</h2>
+      </div>
+      <p class="text-normal text-muted" th:text="${story}">Story</p>
+      <ul class="briefing-list">
+        <li>You start with <strong style="color: var(--color-text)">3 lives</strong>.</li>
+        <li>A wrong answer costs <strong style="color: var(--color-danger)">1 life</strong>.</li>
+        <li>Solve <strong style="color: var(--color-success)">4 challenges</strong> to complete the mission.</li>
+        <li>Use the hint if you are stuck. Press 1-4 to pick an answer, Enter to submit.</li>
+      </ul>
+      <div class="actions">
+        <button type="button" class="btn" id="btn-start">🚀 Start Mission</button>
+        <a class="btn btn-secondary" th:href="@{/spacecraft}">← Change Destination</a>
+      </div>
+    </section>
+
+    <!-- 2. Gameplay -->
+    <section id="screen-play" class="hidden stack-3" aria-live="polite">
+
+      <div class="card">
+        <div class="status-bar">
+          <div class="status-item">
+            <span class="status-label">Lives</span>
+            <span class="status-value lives" id="lives" role="img"></span>
+          </div>
+          <div class="status-item">
+            <span class="status-label">Challenge</span>
+            <span class="status-value timer" id="challenge-count">1 / 4</span>
+          </div>
+        </div>
+        <div class="progress" style="margin-top: var(--space-2)"><span id="progress-bar" style="width: 0%"></span></div>
+      </div>
+
+      <div class="card stack-3" id="challenge-card">
+        <div class="stack-1">
+          <p class="eyebrow">Challenge</p>
+          <h2 class="title-section" id="challenge-title">Title</h2>
+        </div>
+        <ul class="clue-list" id="clue-list"></ul>
+        <p class="text-question" id="challenge-question">Question</p>
+        <div class="options" id="options" role="radiogroup" aria-label="Answer options"></div>
+
+        <div class="actions">
+          <button type="button" class="btn" id="btn-submit" disabled>Submit</button>
+          <button type="button" class="btn btn-secondary" id="btn-hint">💡 Hint</button>
+        </div>
+
+        <div class="hint-panel hidden" id="hint-panel" role="note">
+          <p class="hint-title">💡 Hint</p>
+          <p class="text-normal" id="hint-text" style="margin-top: var(--space-1)"></p>
+        </div>
+      </div>
+
+      <div class="feedback hidden stack-2" id="feedback" role="status">
+        <p class="feedback-title" id="feedback-title"></p>
+        <p class="text-normal" id="feedback-text"></p>
+        <button type="button" class="btn" id="btn-feedback">Continue</button>
+      </div>
+    </section>
+
+    <!-- 3. Mission accomplished / failed (common structure) -->
+    <section id="screen-end" class="hidden" aria-live="assertive">
+      <div class="card mission-end stack-3" id="end-panel">
+        <div class="end-icon" id="end-icon" aria-hidden="true">✓</div>
+        <h2 class="end-title" id="end-title">Mission Accomplished</h2>
+        <p class="end-sub" id="end-sub">Objective Completed</p>
+        <p class="text-normal" id="end-text"></p>
+        <div class="end-actions">
+          <button type="button" class="btn" id="btn-restart">Play Again</button>
+          <a class="btn btn-secondary" th:href="@{/}">Main Menu</a>
+          <a class="btn btn-secondary" th:href="@{/spacecraft}">Change Destination</a>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+</body>
+</html>

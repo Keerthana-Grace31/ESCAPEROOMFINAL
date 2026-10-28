@@ -1,0 +1,7 @@
+target/
+.idea/
+.vscode/
+*.class
+.env
+.DS_Store
+escaperoom_final/

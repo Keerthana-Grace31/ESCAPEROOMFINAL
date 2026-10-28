@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Background music fragments</title>
+</head>
+<body>
+
+<!-- Background music. Its own element, so the click / correct / wrong / success / failure effects
+     (separate Audio objects) are never interrupted by it. Driven by /js/bgm.js. -->
+<audio th:fragment="audio" id="bgm-audio" th:src="@{/sounds/common/hub-ambient.mp3}"
+       src="/sounds/common/hub-ambient.mp3" loop preload="auto"></audio>
+
+<!-- Stand-alone toggle for pages that have no header toggle of their own (Time Travel). -->
+<button th:fragment="toggle" type="button" class="bgm-toggle" data-bgm-toggle
+        aria-pressed="true">&#128266; SOUND ON</button>
+
+</body>
+</html>

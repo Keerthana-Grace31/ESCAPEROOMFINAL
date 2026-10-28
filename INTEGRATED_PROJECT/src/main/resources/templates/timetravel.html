@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time Travel Mission | Digital Escape Room</title>
+    <link rel="stylesheet" th:href="@{/css/timetravel.css}">
+</head>
+
+<body th:data-bgm-src="@{/sounds/music/the-way-out-15s.mp3}" data-bgm-src="/sounds/music/the-way-out-15s.mp3">
+    <th:block th:replace="~{fragments/bgm :: audio}"></th:block>
+
+    <nav class="top-nav"><a class="home-link" th:href="@{/}">&#8962; HOME</a>
+        <th:block th:replace="~{fragments/bgm :: toggle}"></th:block></nav>
+
+    <h1>TIME TRAVEL</h1>
+
+    <p>Choose your mission and prepare to navigate through time.</p>
+
+    <section>
+        <h2>MISSION 1: THE LOST INVENTION</h2>
+        <p>
+            Travel through the past, present, and future
+            to recover a lost invention.
+        </p>
+        <div class="mission-links">
+            <a th:href="@{/timetravel/game}" class="mission-button">ENTER MISSION</a>
+            <a th:href="@{/timetravel/mission/1}" class="mission-button">PRACTICE QUIZ</a>
+        </div>
+    </section>
+
+    <section>
+        <h2>MISSION 2: SAVE THE FUTURE</h2>
+        <p>
+            Travel through different time periods
+            and restore the future before it is too late.
+        </p>
+        <div class="mission-links">
+            <a th:href="@{/timetravel/mission/2}" class="mission-button">ENTER MISSION</a>
+        </div>
+    </section>
+
+    <script th:src="@{/js/bgm.js}"></script>
+</body>
+</html>

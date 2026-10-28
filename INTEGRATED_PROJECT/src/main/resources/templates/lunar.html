@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments/layout :: head('Lunar Mission')}"></head>
+<body th:data-bgm-src="@{/sounds/music/the-way-out-15s.mp3}" data-bgm-src="/sounds/music/the-way-out-15s.mp3" class="theme-lunar"
+      th:data-ambient="@{/sounds/spacecraft/ambient.mp3}"
+      th:data-sound-base="@{/sounds}">
+    <th:block th:replace="~{fragments/bgm :: audio}"></th:block>
+
+  <div th:replace="~{fragments/layout :: background('lunar')}"></div>
+
+  <div class="page">
+    <div th:replace="~{fragments/layout :: header(@{/spacecraft}, '← Destinations')}"></div>
+
+    <th:block th:replace="~{fragments/mission :: mission('lunar', 'Lunar', 'Moon Base Emergency', 'Moon Base Alpha has gone silent. You are the only technician on the surface, with limited oxygen and a radio that takes seconds to reach Earth. Use the clues, and make every decision count.', 'Moon Base Alpha is back online and the crew has been brought home safely.', 'Your oxygen ran out before help could arrive. Moon Base Alpha remains silent.')}"></th:block>
+  </div>
+
+  <script th:src="@{/js/game.js}"></script>
+  <script th:src="@{/js/spacecraft.js}"></script>
+    <script th:src="@{/js/bgm.js}"></script>
+</body>
+</html>
